@@ -1,0 +1,97 @@
+---
+output:
+  rmdformats::robobook:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    highlight: kate
+    use_bookdown: true
+    css: "../css/basic.css"
+---
+
+# Agrupamentos 
+
+## Objetivo
+
+- Calcular as estatísticas: área, e população para Mesorregiões
+- Uma mesorregião é um agrupamento de municípios e é identificada pelos primeiros quatro dígitos do código de município
+
+
+
+## Importar o SHP
+
+```{r}
+library(sf)
+mg_muns_3 = read_sf( "data/mg_muns_3.shp")
+```
+
+## Mesoregiões
+
+Mesorregião é uma área individualizada, em uma Unidade da Federação, que apresenta forma de organização do espaço geográfico definidas pelas seguintes dimensões: o processo social, como determinante; o quadro natural, como condicionante; e a rede de comunicação e de lugares, como elemento da articulação espacial. 
+
+- os códigos de mesorregiões são os 4 primeiros dígitos do código de município: para Viçosa, codigo 3171303, o código da mesorregião é 3171
+
+- o código abaixo cria uma nova variável chamada `CD_MESO` no dataframe `pop_data_MG`, que contém os primeiros quatro dígitos de cada código municipal em `COD..MUNIC`. 
+
+```{r}
+library(dplyr)
+library(stringr)
+mg_pop = mg_muns_3 |>  mutate(CD_MESO = str_sub(CD_MUN, 1, 4))
+head(mg_pop)
+```
+
+1. `mg_muns_3`: é o dataframe que está sendo manipulado.
+
+2. `|>`: O operador pipe (`|>`) é usado para passar o resultado da expressão à esquerda como primeiro argumento da função à direita. Ele ajuda a encadear operações de forma mais legível.
+
+3. `mutate(CD_MESO = str_sub(COD_MUNIC, 1, 4))`: Aqui, a função `mutate` do pacote `dplyr` está sendo usada para criar uma nova variáveis no dataframe. 
+
+   - `CD_MESO`: É o nome da nova variável que está sendo criada.
+   
+   - `str_sub(COD_MUNIC, 1, 4)`: Está utilizando a função `str_sub` do pacote `stringr`. Essa função extrai um pedaço de uma string com base nas posições especificadas. No caso, está pegando os caracteres nas posições de 1 a 4 da variável `COD_MUNIC`. 
+   - Isso cria uma nova variável chamada `CD_MESO` contendo os quatro primeiros dígitos de cada código municipal em `COD_MUNIC`.
+
+
+
+
+
+## Agrupar e Resumir
+
+Agora calculamos a mg_população total para cada região. Neste caso, queremos fazer um group_by e summarise como se fosse um data.frame regular - caso contrário, todas as nossas geometrias de ponto seriam incluídas na agregação, o que não é o que queremos. Nosso objetivo é apenas obter a mg_população total por região. Removemos a geometria usando as.data.frame, seguindo a orientação da página de ajuda sf::tidyverse.
+
+```{r}
+mg_pop_region = mg_pop %>%  group_by(CD_MESO) %>% 
+  summarise(
+    total_meso_pop = sum(POP__TOTAL),
+    total_meso_area= sum(AREA_KM2))
+```
+
+```{r}
+head(mg_pop_region)
+
+```
+
+Explicitando a soma da população para a mesorregião 3100
+
+```{r}
+mg_pop |> filter(CD_MESO==3100) |> summarise(s= sum(POP__TOTAL))
+```
+ Observe que automaticamente também é feita a composição (union) da geometria
+
+
+## Salvar
+
+Salve o objeto espacial no disco usando write_sf() e especificando o nome do arquivo. Escrever seu arquivo com a extensão .shp assumirá um driver ESRI, mas existem muitas outras opções de formato disponíveis.
+
+```{r}
+write_sf(mg_pop_region, "data/MG_meso_shp/MG_Mesorregioes_2022.shp")
+```
+
+
+
+
+
+
+
+

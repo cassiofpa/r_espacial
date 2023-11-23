@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+
+    
+    
+    <title>introducao.knit</title>
+
+        <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="site_libs/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="site_libs/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+        <script src="site_libs/navigation-1.1/tabsets.js"></script>
+        <link href="site_libs/magnific-popup-1.1.0/magnific-popup.css" rel="stylesheet" />
+        <script src="site_libs/magnific-popup-1.1.0/jquery.magnific-popup.min.js"></script>
+        <link href="site_libs/robobook-0.1/robobook.css" rel="stylesheet" />
+        <link href="site_libs/robobook-0.1/robobook_fonts_embed.css" rel="stylesheet" />
+        <script src="site_libs/robobook-0.1/robobook.js"></script>
+    
+    
+        <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          background-color: #ffffff;
+          color: #a0a0a0;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+      div.sourceCode
+        { color: #1f1c1b; background-color: #ffffff; }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span { color: #1f1c1b; } /* Normal */
+      code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+      code span.an { color: #ca60ca; } /* Annotation */
+      code span.at { color: #0057ae; } /* Attribute */
+      code span.bn { color: #b08000; } /* BaseN */
+      code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+      code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #924c9d; } /* Char */
+      code span.cn { color: #aa5500; } /* Constant */
+      code span.co { color: #898887; } /* Comment */
+      code span.cv { color: #0095ff; } /* CommentVar */
+      code span.do { color: #607880; } /* Documentation */
+      code span.dt { color: #0057ae; } /* DataType */
+      code span.dv { color: #b08000; } /* DecVal */
+      code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+      code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+      code span.fl { color: #b08000; } /* Float */
+      code span.fu { color: #644a9b; } /* Function */
+      code span.im { color: #ff5500; } /* Import */
+      code span.in { color: #b08000; } /* Information */
+      code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+      code span.op { color: #1f1c1b; } /* Operator */
+      code span.ot { color: #006e28; } /* Other */
+      code span.pp { color: #006e28; } /* Preprocessor */
+      code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+      code span.sc { color: #3daee9; } /* SpecialChar */
+      code span.ss { color: #ff5500; } /* SpecialString */
+      code span.st { color: #bf0303; } /* String */
+      code span.va { color: #0057ae; } /* Variable */
+      code span.vs { color: #bf0303; } /* VerbatimString */
+      code span.wa { color: #bf0303; } /* Warning */
+    </style>
+    
+        <link rel="stylesheet" href="../css/basic.css" type="text/css" />
+    
+    <!-- tabsets -->
+    <script>
+      $(document).ready(function () {
+	  window.buildTabsets("toc");
+      });
+      $(document).ready(function () {
+	  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+	      $(this).parent().toggleClass('nav-tabs-open')
+	  });
+      });
+    </script>
+
+    <!-- code folding -->
+    
+    <!-- code download -->
+    
+    <!-- tabsets dropdown -->
+
+    <style type="text/css">
+      .tabset-dropdown > .nav-tabs {
+	  display: inline-table;
+	  max-height: 500px;
+	  min-height: 44px;
+	  overflow-y: auto;
+	  background: white;
+	  border: 1px solid #ddd;
+	  border-radius: 4px;
+      }
+      
+      .tabset-dropdown > .nav-tabs > li.active:before {
+	  content: "";
+	  font-family: 'Glyphicons Halflings';
+	  display: inline-block;
+	  padding: 10px;
+	  border-right: 1px solid #ddd;
+      }
+      
+      .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+	  content: "&#xe258;";
+	  border: none;
+      }
+      
+      .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+	  content: "";
+	  font-family: 'Glyphicons Halflings';
+	  display: inline-block;
+	  padding: 10px;
+	  border-right: 1px solid #ddd;
+      }
+      
+      .tabset-dropdown > .nav-tabs > li.active {
+	  display: block;
+      }
+
+      .tabset-dropdown > .nav-tabs > li.active a {
+  	  padding: 0 15px !important;
+      }
+
+      .tabset-dropdown > .nav-tabs > li > a,
+      .tabset-dropdown > .nav-tabs > li > a:focus,
+      .tabset-dropdown > .nav-tabs > li > a:hover {
+	  border: none;
+	  display: inline-block;
+	  border-radius: 4px;
+	  background-color: transparent;
+      }
+      
+      .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+	  display: block;
+	  float: none;
+      }
+      
+      .tabset-dropdown > .nav-tabs > li {
+	  display: none;
+	  margin-left: 0 !important;
+      }
+    </style>
+    
+</head>
+
+<body class="preload">
+
+   	
+            <!-- robobook start -->   
+   <div class="book with-summary">
+      <div class="book-summary">
+        <ul>
+          <li class="title"></li>
+          <li class="divider"></li>
+        </ul>
+        <nav role="navigation" id="toc">
+          <ul>
+          <li><a href="#introdução" id="toc-introdução"><span class="toc-section-number">1</span> Introdução</a>
+          <ul>
+          <li><a href="#uso-do-r" id="toc-uso-do-r"><span class="toc-section-number">1.1</span> Uso do R</a></li>
+          <li><a href="#o-rmarkdown" id="toc-o-rmarkdown"><span class="toc-section-number">1.2</span> O RMarkdown</a></li>
+          <li><a href="#package" id="toc-package"><span class="toc-section-number">1.3</span> <em>package</em></a></li>
+          <li><a href="#arquivo-.rmd" id="toc-arquivo-.rmd"><span class="toc-section-number">1.4</span> Arquivo <em>.Rmd</em></a></li>
+          <li><a href="#geração-de-documentos" id="toc-geração-de-documentos"><span class="toc-section-number">1.5</span> Geração de Documentos</a></li>
+          <li><a href="#sequencia-para-geração-de-documento---rendering" id="toc-sequencia-para-geração-de-documento---rendering"><span class="toc-section-number">1.6</span> Sequencia para Geração de Documento - “Rendering”</a></li>
+          <li><a href="#formatos-de-saída" id="toc-formatos-de-saída"><span class="toc-section-number">1.7</span> Formatos de Saída</a></li>
+          <li><a href="#vantagens" id="toc-vantagens"><span class="toc-section-number">1.8</span> Vantagens</a></li>
+          <li><a href="#boas-práticas" id="toc-boas-práticas"><span class="toc-section-number">1.9</span> Boas Práticas</a></li>
+          <li><a href="#referências" id="toc-referências"><span class="toc-section-number">1.10</span> Referências</a></li>
+          </ul></li>
+          </ul>
+        </nav>
+        <ul class="authors">
+          <li class="divider"></li>
+                            </ul>     
+      </div>
+      <div class="book-body fixed">
+        <div class="body-inner">
+            <a class="btn pull-left js-toolbar-action toggle-sidebar" aria-label="Toggle Sidebar" title="Toggle Sidebar" href="#">
+              <span class="glyphicon glyphicon-menu-hamburger"></span>
+            </a>
+            <div class="page-inner">
+              <section id="content" class="normal">
+      
+   
+      
+      <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Cars</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li>
+        <a href="index.html">Home</a>
+      </li>
+      <li>
+        <a href="about.html">About</a>
+      </li>
+      <li>
+        <a href="introducao.html">Introdução</a>
+      </li>
+      <li>
+        <a href="tutorial_1.html">Análise Vetorial</a>
+      </li>
+      <li>
+        <a href="mapas.html">Mapas</a>
+      </li>
+      <li>
+        <a href="Agrupar.html">Agrupamento Espacial</a>
+      </li>
+      <li>
+        <a href="map_py.html">R e Python</a>
+      </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container -->
+      </div><!--/.navbar -->
+        
+      
+        
+
+   
+      
+   
+<!-- Don't indent these lines or it will mess pre blocks indentation --> 
+<div id="introdução" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Introdução</h1>
+<p>A ciência de dados é uma área que estuda como extrair conhecimento dos dados. Um campo vasto, que utiliza técnicas e teorias de diversas áreas, tais como: Banco de Dados, Estatística, Machine Learning, Visualização de dados, Computação(e Programação) e experiencia no domínio do problema.</p>
+<p>Tudo começa com uma análise detalhada do problema para definir as hipóteses ou perguntas a serem respondidas, entender quais dados serão necessários e como ou onde obte-los. Nesta etapa e nas discussões a cada ciclo, é fundamental a integração de especialista da área (contexto) do problema e os cientistas de dados.Na sequencia, inicia-se a fase de análise dos dados. A figura abaixo mostra um modelo típico de analise de dados em um projeto de ciência de dados, que inclui diversas fase e ciclos que necessitam de uma diversidade de conhecimentos e habilidades.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;figures/base1.png&quot;</span>)</span></code></pre></div>
+<p><img src="figures/base1.png" width="752" /></p>
+<ol style="list-style-type: decimal">
+<li><strong>Importação e Organização dos Dados:</strong>
+<ul>
+<li>Importação inicial dos dados para o ambiente de trabalho (o R) é crucial para iniciar a análise de dados.</li>
+<li>Organização dos dados (tidying) é um etapa fundamental e geralmente a de maior esforço. Tem grande importância para garantir consistência, onde cada coluna representa uma variável e cada linha uma observação.</li>
+</ul></li>
+<li><strong>Transformação e Processamento dos Dados:</strong>
+<ul>
+<li>Transformação envolve focar em observações específicas, criar novas variáveis e calcular estatísticas resumidas.</li>
+<li>Tidying e transformação, chamados de <em>“wrangling”</em>, são essenciais para facilitar a análise dos dados.</li>
+</ul></li>
+<li><strong>Visualização e Modelagem:</strong>
+<ul>
+<li>Visualização é uma etapa importante na busca de entendimento de padrões e relações nos dados.</li>
+<li>Modelos, são ferramentas estatísticas ou computacionais com finalidades específicas para execuções de tarefas e tomada de decisões.</li>
+</ul></li>
+<li><strong>Comunicação:</strong>
+<ul>
+<li>Comunicar os resultados é crucial, independentemente da qualidade das visualizações e modelos.</li>
+</ul></li>
+<li><strong>Programação:</strong>
+<ul>
+<li>A programação é uma ferramenta abrangente usada em todas as fases do projeto de ciência de dados, permitindo automação e resolução eficiente de problemas.</li>
+<li>Embora essas ferramentas extremamente úteis e capazes de resolver praticamente todos os problemas, muitas vezes é conveniente a utilização de outras conforme o andamento do projeto.</li>
+</ul></li>
+</ol>
+<div id="uso-do-r" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Uso do R</h2>
+<p><strong>Packages:</strong></p>
+<ul>
+<li>RMarkdown</li>
+<li>Knitr</li>
+</ul>
+</div>
+<div id="o-rmarkdown" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> O RMarkdown</h2>
+<ul>
+<li>Ambiente para criação de documentos de forma dinâmica - Integra código R e texto</li>
+<li>Executa o código R na geração do documento</li>
+<li>Documentos reproduzíveis (<em>reproducible research</em>)</li>
+<li>Uma implementação de <em>Markdown</em></li>
+</ul>
+</div>
+<div id="package" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> <em>package</em></h2>
+<ul>
+<li>package “rmarkdown”</li>
+<li>O arquivo rmarkdown é um arquivo texto com extenxsão <em>.Rmd</em>.</li>
+</ul>
+</div>
+<div id="arquivo-.rmd" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> Arquivo <em>.Rmd</em></h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;figures/rmd.png&quot;</span>)</span></code></pre></div>
+<p><img src="figures/rmd.png" width="70%" /></p>
+<ul>
+<li>O arquivo <em>.Rmd</em> comtém todo os registros</li>
+<li>O conteúdo pode ser reexecutado</li>
+</ul>
+</div>
+<div id="geração-de-documentos" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Geração de Documentos</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;figures/RMarkdownOutputFormats.png&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-4"></span>
+<img src="figures/RMarkdownOutputFormats.png" alt="from:rmarkdown-cheatsheet-2.0" width="60%" />
+<p class="caption">
+Figure 1.1: from:rmarkdown-cheatsheet-2.0
+</p>
+</div>
+</div>
+<div id="sequencia-para-geração-de-documento---rendering" class="section level2" number="1.6">
+<h2><span class="header-section-number">1.6</span> Sequencia para Geração de Documento - “Rendering”</h2>
+<ol style="list-style-type: decimal">
+<li>Criação de um arquivo <em>.Rmd</em> que inclui codigo <em>R</em> e texto (<em>markdown</em>)</li>
+<li>o <em>knitr</em> executa o código R e converte o arquivo <em>.Rmd</em> criando um arquivo <em>.md</em>.
+<ul>
+<li>Knitr é um <em>package</em> do R que permite a integração do do código R em um documento RMarkdown em um arquivo markdown</li>
+</ul></li>
+<li>O arquivo <em>.md</em> é usado pelo <em>pandoc</em>, que irá criar o documento final(ex. html, Microsoft word, pdf, etc.).
+<ul>
+<li><em>Pandoc</em> é um conversor universal de documentos para vários formatos (no caso, de <em>.Rmd</em> para <em>HTML</em>)</li>
+</ul></li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;figures/RMarkdownFlow.png&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-5"></span>
+<img src="figures/RMarkdownFlow.png" alt="from:rmarkdown-cheatsheet-2.0" width="90%" />
+<p class="caption">
+Figure 1.2: from:rmarkdown-cheatsheet-2.0
+</p>
+</div>
+</div>
+<div id="formatos-de-saída" class="section level2" number="1.7">
+<h2><span class="header-section-number">1.7</span> Formatos de Saída</h2>
+<ul>
+<li>Documentos e <em>Slides</em> em:
+<ul>
+<li>html</li>
+<li>pdf</li>
+<li>word</li>
+</ul></li>
+<li>Outros: Livros, websites e Documentos Interativos</li>
+</ul>
+</div>
+<div id="vantagens" class="section level2" number="1.8">
+<h2><span class="header-section-number">1.8</span> Vantagens</h2>
+<ul>
+<li>Texto e códigos em um só lugar em uma ordem lógica, no fluxo da análise de dados</li>
+<li>Os resultados são automaticamente atualizados com uma alteração nos dados ou código</li>
+<li>Uma versão do documento sempre pronta para apresentação e discussão</li>
+</ul>
+</div>
+<div id="boas-práticas" class="section level2" number="1.9">
+<h2><span class="header-section-number">1.9</span> Boas Práticas</h2>
+<ul>
+<li>Mantenha todos os arquivos sob uma mesma <em>pasta/diretório</em> (<strong>relative paths</strong>)</li>
+<li>Não altere o diretório de trabalho (<strong>setwd()</strong>)</li>
+<li>Compile os documentos em uma sessão limpa (<strong>enviroment</strong>)</li>
+<li>Evite comando com interação humana (<strong>file.choice()</strong>)</li>
+<li>Agregue informações sobre a sessão do R (<strong>sessionInfo()</strong>)</li>
+</ul>
+</div>
+<div id="referências" class="section level2" number="1.10">
+<h2><span class="header-section-number">1.10</span> Referências</h2>
+<ul>
+<li><strong>XIE, Yihui.</strong> <em>Dynamic Documents With R and knitr</em>.</li>
+<li><strong>PENG, Roger</strong>. <em>Report Writing for Data Science in R</em></li>
+<li><strong>GANDRUD,Christopher</strong>. <em>Reproducible Research with R and RStudio</em></li>
+<li><strong>MOUNT, John; ZUMEL, Nina</strong>. <em>Practical data science with R</em>. 2019.</li>
+<li><strong>WICKHAM, Hadley; ÇETINKAYA-RUNDEL, Mine; GROLEMUND, Garrett</strong>. <em>R for data science</em>. 2023.</li>
+</ul>
+</div>
+</div>
+
+   
+   
+           </section>
+  </div>
+  </div>
+  </div>
+  </div>
+      
+      
+
+  <script>
+    $(document).ready(function () {
+
+		// add bootstrap table styles to pandoc tables
+	$('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+		
+ 	 	$('#content img').addClass("image-thumb");
+		
+		$('#content img:not(.no-lightbox)').addClass("image-lb");
+	$('#content').magnificPopup({
+	    type:'image',
+	    closeOnContentClick: false,
+	    closeBtnInside: false,
+	    delegate: '.image-lb',
+	    gallery: {enabled: true },
+	    image: {
+	        verticalFit: true,
+		titleSrc: 'alt'
+	    }
+ 	});
+ 	    });
+  </script>
+
+
+
+    <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+	var script = document.createElement("script");
+	script.type = "text/javascript";
+	script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+	document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+  
+</body>
+</html>

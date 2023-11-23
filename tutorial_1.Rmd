@@ -1,0 +1,487 @@
+---
+output:
+  rmdformats::robobook:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    highlight: kate
+    use_bookdown: true
+    css: "../css/basic.css"
+---
+
+
+```{r  include=FALSE}
+
+knitr::opts_chunk$set(echo =TRUE, warning=FALSE)
+
+```
+<!--
+https://learning.nceas.ucsb.edu/2019-11-RRCourse/spatial-vector-analysis-using-sf.html
+
+-->
+# Análise Espacial Vetorial usando sf
+
+
+## Objetivos de Aprendizado
+
+- Preparação e visualização de dados geoespaciais
+  - preparação de dados (dplyr)
+  - manipulação de dados espaciais (sf)
+  - visualização em mapas (ggplot e leaflet)
+
+
+## O problema
+
+Visualização de estatísticas municipais para o estado de Minas Gerais
+
+## Dados disponíveis
+
+- Shapefiles dos município de MG
+- População por município 2022
+- Altitude das sedes de município
+- IDH por municípios 
+
+
+## Estratégia de análise
+
+1. Preparação do Ambiente RStudio
+
+2. Leitura e preparação das tabelas de dados
+  - População por município 2022
+  - Altitude das sedes de município
+  - IDH por municípios
+
+3. Leitura do shp
+
+4. Integração dos dados
+
+5. Visualização dos Mapas
+
+
+
+
+
+## Leitura dos Dados
+
+### Dados de População
+
+- importar os dados de população, um arquivo csv
+- fazer os ajustes que forem necessários
+- biblioteca `dplyr` ([saiba mais sobre dplyr](https://dplyr.tidyverse.org/))
+
+
+
+```{r}
+mun_pop = read.csv2("data/CD2022_Populacao_Total_Municipio.csv",
+                    stringsAsFactors = FALSE)
+head(mun_pop)
+```
+
+1. **`mun_pop = read.csv2("data/CD2022_Populacao_Total_Municipio.csv")`**
+   - `read.csv2`: função  (base do R) é usada para ler dados de um arquivo CSV. O argumento `"data/CD2022_Populacao_Total_Municipio.csv"` especifica o caminho do arquivo CSV a ser lido.
+   
+2. **`head(mun_pop)`**
+   - `head()`: Esta função é usada para mostrar as primeiras linhas de um conjunto de dados `mun_pop` no console.
+   
+
+Observe que o código de município ("COD..MUNIC"), que deveria ter 5 dígitos, ficou truncado. Estes códigos, em muitos casos começa com zeros e no processo de leitura, são lidos como números e então perdem os zeros iniciais (não significativos). Além disso, é usual complementar o código com o código da UF e desta forma, o código completo de município terá 7 dígitos, dois dígitos iniciais com o código da UF  e mais 5 referente ao município. 
+
+Para começar, vamos selecionar os registros referentes a MG - nosso objetivo de análise. Esta seleção de registros é conhecida como "filter". No código abaixo, vamos filtrar os registros utilizando a sigla da UF, no caso "MG", e guardar o resultado em um novo objeto,  'mg_pop'.
+
+
+```{r}
+library(dplyr)
+# mg_pop = filter(mun_pop, UF == "MG") ## forma tradicional
+
+mg_pop = mun_pop |> filter(UF == "MG") ## utilizando o pipe para concatenar os termos e comandos
+
+head(mg_pop)
+```
+Este trecho de código em R utiliza a biblioteca `dplyr` e a notação de pipe (`|>`) para filtrar o conjunto de dados `mun_pop` mantendo apenas as observações em que a variável `UF` (Unidade da Federação) é igual a "MG" (Minas Gerais). Vamos analisar o código linha por linha:
+
+1. **`library(dplyr)`**
+   - Carrega a biblioteca `dplyr`, que fornece um conjunto de funções úteis para manipulação de dados em R, como `filter` e o operador de pipe `%>%` ou `|>`.
+
+2. **`mg_pop = mun_pop |> filter(UF == "MG")`**
+   - `mun_pop |> filter(UF == "MG")`: Utiliza o operador de pipe (`|>`) para encadear a função `filter` ao conjunto de dados `mun_pop`. Isso é equivalente à forma tradicional `mg_pop = filter(mun_pop, UF == "MG")`.
+   - `UF == "MG"`: É a condição de filtro, mantendo apenas as linhas em que a variável `UF` é igual a "MG".
+   - `mg_pop`: Armazena o resultado no objeto `mg_pop`.
+
+
+Agora, vamos ajustar o código dos municípios em duas etapas. A primeira padroniza em 5 dígitos incluindo zeros à esquerda e na segunda etapa adiciona o código de UF, "31 no caso de MG. Para isso, vamos utilizar a biblioteca `stringr` que tem diversas funções para manipulação de strings (texto). [saiba mais sobre stringr](https://stringr.tidyverse.org/index.html)
+
+
+```{r}
+library(stringr)
+
+mg_pop$COD..MUNIC=str_pad(mg_pop$COD..MUNIC,5,"left",pad="0")
+mg_pop$COD..MUNIC=str_c("31",mg_pop$COD..MUNIC)
+
+head(mg_pop)
+```
+
+1. `library(stringr)`: Isso carrega a biblioteca `stringr`, que fornece funções para manipulação de strings (texto)
+
+2. `pop_data_MG$COD..MUNIC=str_pad(pop_data_MG$COD..MUNIC,5,"left",pad="0")`: Nesta linha, o código está ajustando a largura da variável `COD..MUNIC` no data frame `pop_data_MG`. 
+    - `str_pad` é usado para adicionar zeros à esquerda da string contida em `pop_data_MG$COD..MUNIC` de modo que ela tenha comprimento igual a 5. Se o comprimento atual for menor que 5, zeros serão adicionados à esquerda. Se for maior, a string será truncada. O argumento `"left"` especifica que os zeros devem ser adicionados à esquerda.
+
+3. `pop_data_MG$COD..MUNIC=str_c("31",pop_data_MG$COD..MUNIC)`: Nesta linha, é adicionado o prefixo "31" à variável `COD..MUNIC` em `pop_data_MG`. 
+    - `str_c` é utilizado para concatenar as strings. Portanto, o resultado será a concatenação de "31" com o conteúdo original de `pop_data_MG$COD..MUNIC`, efetivamente formando um novo código municipal.
+
+
+
+
+### Dados de Altitude das sedes de municípios
+
+- Carregar os dados de altitude das sedes de municípios, um arquivo csv
+- observe que agora, foi utilizada uma função diferente para a leitura: `read.csv`
+- este arquivo também é um csv, mas com algumas diferenças para o csv anterior. Neste, o separador de colunas é "," ( no anterior era ";") e a casa decimal deste é o "." (no anterior era ",")
+
+```{r}
+alt_sede = read.csv("data/altitudes_sedes.csv")
+alt_sede$CD_GEOCODM=as.character(alt_sede$CD_GEOCODM) 
+head(alt_sede)
+```
+
+- **`alt_sede$CD_GEOCODM=as.character(alt_sede$CD_GEOCODM)`**
+   - `alt_sede$CD_GEOCODM`: Acessa a coluna chamada `CD_GEOCODM` no conjunto de dados `alt_sede`.
+   - `as.character()`: Converte os valores dessa coluna para o tipo de dado caractere (string). Isso pode ser útil quando se trabalha com códigos geográficos que não devem ser tratados como números.
+
+
+
+
+
+
+
+## Carregando os Shpefiles dos municípios
+
+ A biblioteca `sf` é uma das mais importantes e atuais para utilização com dados espaciais. O `sf` é uma implementação em R  que incorpora:
+
+- Um novo sistema de classes de dados espaciais em R.
+- Funções para leitura e escrita de dados.
+- Ferramentas para operações espaciais em vetores.
+- [saiba mais sobre sf](https://r-spatial.github.io/sf/).
+
+
+Leia os dados e veja um gráfico:
+
+```{r}
+library(sf)
+
+# mg_muns = read_sf("data/MG_mun_shp/") # baste indicar a pastas que contem o shapefile 
+
+#caso tenha mais de um shp, especifique o nome do ".shp"
+mg_muns = read_sf("data/MG_mun_shp/MG_Municipios_2022.shp")
+
+```
+
+
+1. **`library(sf)`**
+   - Carrega a biblioteca `sf`, que é utilizada para manipular dados espaciais.
+
+2. **`mg_muns = read_sf("data/MG_mun_shp/MG_Municipios_2022.shp")`**
+   - `read_sf`: Esta função é usada para ler dados espaciais de um arquivo shapefile (formato comum para dados espaciais).
+   - `"data/MG_mun_shp/MG_Municipios_2022.shp"`: Especifica o caminho do arquivo shapefile a ser lido.
+   - `mg_muns`: Armazena os dados espaciais no objeto `mg_muns`.
+
+
+O objeto `mg_muns` tem uma classe especial
+
+```{r}
+class(mg_muns)
+```
+   
+
+Objetos sf geralmente têm dois tipos - sf e data.frame. Duas diferenças principais em comparação com um objeto data.frame regular são metadados espaciais (tipo de geometria, dimensão, bbox, epsg (SRID), proj4string) e uma coluna adicional - geralmente chamada de geometria. No caso de `mg_muns` a geometria é referente aos polígonos dos municípios
+
+Como `mg_muns` também é da classe data.frame, visualizar o conteúdo do objeto usando a função head mostra resultados semelhantes aos dados que lemos usando read.csv.
+
+```{r}
+head(mg_muns)
+```
+Observe que este objeto tem uma coluna com a geometria. Neste caso o polígono com a delimitação espacial do município
+
+
+Também podemos examinar sua classe:
+
+```{r}
+class(mg_muns)
+```
+
+Objetos sf geralmente têm dois tipos - sf e data.frame. Duas diferenças principais em comparação com um objeto data.frame regular são metadados espaciais (tipo de geometria, dimensão, bbox, epsg (SRID), proj4string) e uma coluna adicional - geralmente chamada de geometria.
+
+Como o objeto shapefile tem a classe  sf e data.frame, a função `head` mostra os os metadados espaciais e as primeiras linhas do data.frame.
+
+```{r}
+head(mg_muns)
+
+```
+
+
+
+### Sistema de Referência de Coordenadas
+
+Cada objeto sf precisa de um sistema de referência de coordenadas (src ou crs, do inglês) definido para funcionar corretamente. Um sistema de referência de coordenadas contém tanto um datum quanto uma projeção. Grosso modo, o datum é como você georreferencia seus pontos (em 3 dimensões!) para um esferoide. A projeção é como esses pontos são transformados matematicamente para representar o ponto georreferenciado em uma folha de papel plana. Todos os sistemas de referência de coordenadas requerem um datum. No entanto, alguns sistemas de referência de coordenadas são "não projetados" (também chamados de sistemas de coordenadas geográficas). Coordenadas em latitude/longitude usam um sistema de coordenadas geográficas (não projetado). 
+
+Você pode ver qual src está definido usando a função `st_crs`:
+
+```{r}
+st_crs(mg_muns)
+```
+
+Isso parece bastante confuso. Sem entrar em detalhes, essa sequência longa indica que esses dados têm um sistema de coordenadas geográficas (SIRGAS 2000 ). Uma maneira conveniente de referenciar crs rapidamente é usando o código EPSG, um número que representa uma projeção e datum padrão. Você pode conferir uma lista de (muitos!) códigos EPSG [aqui](https://spatialreference.org/ref/epsg/).
+
+
+Muitas vezes, você precisará transformar seus dados geoespaciais de um sistema de coordenadas para outro. A função `st_transform` faz isso rapidamente. 
+
+```{r}
+mg_muns_4326 = mg_muns %>%
+  st_transform(crs = 4326)
+
+st_crs(mg_muns_4326)
+
+```
+
+### Atributos
+
+Objetos sf podem ser usados como um objeto data.frame regular em muitas operações. 
+
+```{r}
+nrow(mg_muns)
+
+ncol(mg_muns)
+
+```
+
+1. `nrow(mg_muns)`: retorna o número de linhas no objeto `mg_muns`, ou seja, a contagem de observações no conjunto de dados. Isso é útil para saber quantos itens estão presentes no conjunto de dados.
+
+2. `ncol(mg_muns)`: retorna o número de colunas no objeto `mg_muns`, ou seja, a contagem de variáveis ou campos no conjunto de dados. Isso é útil para entender a dimensionalidade do conjunto de dados.
+
+
+
+## sf e o Tidyverse
+
+Como objetos `sf` se integram bem com pacotes no tidyverse muito utilizado para preparação e manipulação de dados. Isto faz com que os objetos `sf` sejam facilmente manipulados. Aqui estão alguns exemplos simples:
+
+
+
+### `select()`
+
+- `select(CD_MUN, NM_MUN)`: Utiliza a função `select` da biblioteca `dplyr` para escolher apenas as colunas `CD_MUN` e `NM_MUN` do conjunto de dados `mg_muns`.
+
+```{r}
+mg_muns %>%  select(CD_MUN, NM_MUN)
+```
+
+- `%>%`: O operador de pipe (`%>%`) é usado para encadear operações, permitindo que o resultado da expressão à esquerda seja passado como argumento para a expressão à direita.
+
+O resultado dessa expressão será um novo conjunto de dados que contém apenas as colunas mencionadas (`CD_MUN` e `NM_MUN`). Esse tipo de operação é útil quando você deseja focar em colunas específicas do conjunto de dados e reduzir a quantidade de informações exibidas, facilitando a análise ou visualização dos dados desejados.
+
+### `filter()`
+
+- `filter(NM_MUN == "Viçosa")`: Utiliza a função `filter` da biblioteca `dplyr` para manter apenas as linhas em que o valor da coluna `NM_MUN` é igual a "Viçosa".
+
+
+
+```{r}
+mg_muns %>% filter(NM_MUN == "Viçosa")
+
+```
+O resultado dessa expressão será um novo conjunto de dados que contém apenas as linhas correspondentes ao município de "Viçosa" no conjunto de dados original `mg_muns`. Essa operação de filtro é útil quando você deseja examinar ou manipular dados específicos com base em critérios específicos.
+
+
+### Operações com a geometria
+
+- Uma das variáveis em mg_muns é a área do município, caso não existisse, poderiamos obte-la com:
+
+#### Abordagem Tradicional:
+
+```{r}
+area_mun = mg_muns |> st_area()
+area_mun = units::set_units(area_mun, "km2")
+```
+
+Nesta abordagem, as áreas são calculadas e armazenadas em `area_mun` usando o operador de pipe (`|>`). Em seguida, a função `units::set_units` é usada para definir as unidades da área como quilômetros quadrados.
+`area_mun` é um vetor com os dados de área, mas não esta integrador ao objeto `mg_muns`
+
+### Abordagem com Pipe:
+
+```{r}
+area_mun = mg_muns |> st_area() |> units::set_units("km2")
+```
+
+Nesta versão, a função `units::set_units` é encadeada diretamente ao resultado de `st_area()` usando o operador de pipe. Isso reduz a necessidade de criar uma variável intermediária. `area_mun` ainda não esta integrador ao objeto `mg_muns`
+
+### Abordagem com Pipe e Mutate:
+
+```{r}
+mg_muns = mg_muns |> mutate(area_mun = st_area(geometry) |> units::set_units("km2") |> as.numeric())
+```
+
+Nesta abordagem, a função `mutate` do `dplyr` é usada para adicionar uma nova coluna chamada `area_mun` ao conjunto de dados original `mg_muns`. O cálculo da área é feito usando `st_area(geometry)`, e as unidades são definidas como quilômetros quadrados com `units::set_units`. A função `as.numeric()` é usada para garantir que a coluna resultante seja numérica.
+
+Cada abordagem tem sua utilidade, e a escolha entre elas pode depender da preferência pessoal do programador ou do contexto específico em que estão sendo utilizadas. Todas as abordagens calculam a área em quilômetros quadrados para os municípios de Minas Gerais.
+
+
+### Observando as duas medidas de área
+
+```{r}
+mg_muns |> select(AREA_KM2, area_mun) |> slice_head(n = 5)
+
+```
+
+- `select(AREA_KM2, area_mun)`: Seleciona as colunas `AREA_KM2` e `area_mun` do conjunto de dados `mg_muns`.
+
+- `slice_head(n = 5)`: Usa a função `slice_head` (dplyr) para exibir as primeiras cinco linhas do conjunto de dados resultante.
+
+O resultado final será um subconjunto do conjunto de dados original `mg_muns`, incluindo apenas as colunas `AREA_KM2` e `area_mun`, com as primeiras cinco linhas. Isso é útil para visualizar rapidamente as áreas em quilômetros quadrados calculadas usando as diferentes abordagens mencionadas anteriormente.
+
+
+### Mapa
+
+Como o objeto `mg_muns` é da classe `sf` com geometria de polygonos, o plot simples será um mapa como segue.
+
+```{r}
+plot(mg_muns |> select(AREA_KM2))
+```
+
+
+1. **`plot(mg_muns |> select(AREA_KM2))`**
+   - `mg_muns |> select(AREA_KM2)`: Seleciona a coluna `AREA_KM2` do conjunto de dados `mg_muns`. A função `select` é usada para escolher colunas específicas.
+   - `plot(...)`: Gera um gráfico do objeto espacial resultante, que é uma representação visual dos municípios de Minas Gerais com destaque para a área em quilômetros quadrados.
+
+ É uma visualização simple que serve para um momento de análise e visualização rápida. Há outras formas mais elaboradas para gerar a visualização
+
+
+### Recapitulados o que foi feito até agora:
+
+- `mg_pop`: tabela de dados com a população por município. Identificação de município por nome ou código
+
+- `alt_sede`: tabela de dados com as altitudes das sedes dos municípios. Identificação de município por código
+
+- `mg_muns` - é o shape file de municípios com geometria e metadados. Identificação de município por nome ou código
+
+Para a análise final precisamos agregar os dados de população e altitude em `mg_muns`
+
+
+### Joins
+
+
+#### Joins não espaciais
+
+Podemos agregar as duas tabelas `mg_pop` e `alt_sede` utilizando o código de município. Neste caso, apesar de 
+`alt_sede` ter informação para todos os municípios do Brasil, a agregação se dará apenas nos códigos encontrados em `mg_pop`, municípios de MG. A operação em `join` garante a correspondência pelo identificador especificado, no caso, código de município
+```{r}
+mg_pop_2 = left_join(mg_pop,alt_sede, by=c("COD..MUNIC"="CD_GEOCODM"))
+
+head(mg_pop_2)
+```
+
+
+- `left_join`: Esta função realiza uma junção (à esquerda) entre dois conjuntos de dados, preservando todas as linhas do conjunto de dados da esquerda (`mg_pop`) e correspondendo as linhas do conjunto de dados da direita (`alt_sede`) com base nas colunas especificadas.
+
+- `by = c("COD..MUNIC" = "CD_GEOCODM")`: Especifica as colunas com as referencias pelas quais a junção será realizada. Neste caso, as colunas `COD..MUNIC` do conjunto de dados à esquerda e `CD_GEOCODM` do conjunto de dados à direita são usadas para realizar a junção.
+
+O resultado final será um novo conjunto de dados, `mg_pop_2` que contém todas as colunas de `mg_pop` e `alt_sede`, onde as linhas são correspondentes com base na condição estabelecida. Isso é útil para combinar informações de diferentes conjuntos de dados com base em chaves específicas. O conjunto resultante terá todas as linhas de `mg_pop` e as colunas adicionais de `alt_sede` para as linhas correspondentes, enquanto as linhas não correspondentes terão valores NA nas colunas de `alt_sede`.
+
+- há outras variações de `join` [saiba mais sobre dplyr](https://dplyr.tidyverse.org/reference/mutate-joins.html)
+
+
+Neste caso, eram dois data frames, mas poderia ser também um objeto classe `sf`
+
+```{r}
+mg_muns_2 = left_join(mg_muns, mg_pop_2 |> select(COD..MUNIC,POP..TOTAL, ALT), by=c("CD_MUN"="COD..MUNIC"))
+
+head(mg_muns_2)
+```
+
+- `mg_pop_2 |> select(COD..MUNIC, POP..TOTAL, ALT)`: Seleciona as colunas relevantes (`COD..MUNIC`, `POP..TOTAL`, `ALT`) do conjunto de dados à direita (`mg_pop_2`) usando a notação de pipe (`|>`).
+
+O resultado final é um novo conjunto de dados chamado `mg_muns_2`, que contém todas as colunas de `mg_muns`  incluindo a geometria e as colunas adicionais selecionadas de `mg_pop_2` para as linhas correspondentes.
+
+Desta forma podemos explorar 
+
+
+```{r}
+plot(mg_muns_2 |> select(ALT))
+```
+
+
+### Join espacial
+
+Vamos supor que o arquivo `alt_sede` não tenha a coluna de código de município. Neste caso não seria possível fazer o `join` como fizemos anteriormente, utilizando o código. Porem, `alt_sede` tem a coordenada do ponto onde foi feita a medida de altitude e este ponto corresponde a sede do município. Neste caso podemos transformar `alt_sede` em um objeto sf criando a geometria de pontos e em seguida agregar a `mg_muns` por um join espacial. O pacote sf tem funções para concatenar dados 'joins' espaciais, úteis quando você deseja utilizar dois conjuntos de dados com base nas geometrias. 
+
+
+#### Criando um objeto `sf`
+
+```{r}
+head(alt_sede)
+alt_sede_sf = st_as_sf(alt_sede, 
+                  coords = c('LONG', 'LAT'),
+                  crs = 4674,
+                  remove = F)
+head(alt_sede_sf)
+```
+
+- `st_as_sf`: Esta função (sf) converte um conjunto de dados em um objeto do tipo `sf` (dados espaciais).
+
+- `alt_sede`: É o conjunto de dados que será convertido.
+
+- `coords = c('LONG', 'LAT')`: Especifica quais colunas contêm as coordenadas espaciais (longitude e latitude).
+
+- `crs = 4674`: Define o sistema de referência de coordenadas (CRS, do inglês Coordinate Reference System) para o código 4674.
+
+- `remove = F`: Indica que não deve remover as colunas de coordenadas originais do conjunto de dados.
+
+O resultado final é o objeto `alt_sede_sf`, que agora é um conjunto de dados espaciais (`sf`) pronto para ser usado em operações espaciais, como junções espaciais (`st_join`). Essa conversão é frequentemente necessária ao trabalhar com dados espaciais para aproveitar as funcionalidades específicas de manipulação e análise espacial oferecidas pela biblioteca `sf`.
+
+#### `join` espacial
+
+Agora vamos realiza o join espacial o `st_join`
+
+```{r}
+mg_muns_3 = st_join(mg_muns,alt_sede_sf)
+
+head(mg_muns_3)
+```
+
+O código `st_join(mg_muns, alt_sede_sf)` usa a função `st_join` da biblioteca `sf` para realizar uma junção espacial entre os conjuntos de dados `mg_muns` e `alt_sede_sf`. Vamos analisar o código:
+
+
+- `st_join`: Esta função (sf) realiza uma junção espacial entre dois conjuntos de dados `sf` (dados espaciais). A junção é realizada com base na sobreposição espacial dos objetos em ambos os conjuntos.
+
+O resultado final é um novo conjunto de dados chamado `mg_muns_3`, que contém todas as colunas de `mg_muns` e as colunas adicionais de `alt_sede_sf` para as áreas que têm sobreposição espacial. Essa operação é útil quando você deseja combinar informações de diferentes conjuntos de dados com base em sua proximidade espacial ou sobreposição geográfica.
+
+
+Para finalizar, falta agregar a população que pode ser feita por um join não espacial
+
+```{r}
+mg_muns_3 = left_join(mg_muns_3, mg_pop |> select(COD..MUNIC,POP..TOTAL), by=c("CD_MUN"="COD..MUNIC"))
+
+head(mg_muns_3)
+```
+
+### Salvar
+
+Salve o objeto espacial no disco usando write_sf() e especificando o nome do arquivo. Escrever seu arquivo com a extensão .shp assumirá um driver ESRI, mas existem muitas outras opções de formato disponíveis.
+
+#### Salvar em SHP
+
+```{r}
+write_sf(mg_muns_3 , "data/mg_muns_3.shp", delete_layer = TRUE)
+```
+
+
+#### Salvar em Geopackage
+
+```{r}
+write_sf( mg_muns_3, "data/mg_muns_3.gpkg", delete_layer = TRUE)
+```
+
+
+
+
+
+
+

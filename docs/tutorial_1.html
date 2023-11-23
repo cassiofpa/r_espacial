@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+
+    
+    
+    <title>tutorial_1.knit</title>
+
+        <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="site_libs/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="site_libs/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+        <script src="site_libs/navigation-1.1/tabsets.js"></script>
+        <link href="site_libs/magnific-popup-1.1.0/magnific-popup.css" rel="stylesheet" />
+        <script src="site_libs/magnific-popup-1.1.0/jquery.magnific-popup.min.js"></script>
+        <link href="site_libs/robobook-0.1/robobook.css" rel="stylesheet" />
+        <link href="site_libs/robobook-0.1/robobook_fonts_embed.css" rel="stylesheet" />
+        <script src="site_libs/robobook-0.1/robobook.js"></script>
+    
+    
+        <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          background-color: #ffffff;
+          color: #a0a0a0;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+      div.sourceCode
+        { color: #1f1c1b; background-color: #ffffff; }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span { color: #1f1c1b; } /* Normal */
+      code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+      code span.an { color: #ca60ca; } /* Annotation */
+      code span.at { color: #0057ae; } /* Attribute */
+      code span.bn { color: #b08000; } /* BaseN */
+      code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+      code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #924c9d; } /* Char */
+      code span.cn { color: #aa5500; } /* Constant */
+      code span.co { color: #898887; } /* Comment */
+      code span.cv { color: #0095ff; } /* CommentVar */
+      code span.do { color: #607880; } /* Documentation */
+      code span.dt { color: #0057ae; } /* DataType */
+      code span.dv { color: #b08000; } /* DecVal */
+      code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+      code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+      code span.fl { color: #b08000; } /* Float */
+      code span.fu { color: #644a9b; } /* Function */
+      code span.im { color: #ff5500; } /* Import */
+      code span.in { color: #b08000; } /* Information */
+      code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+      code span.op { color: #1f1c1b; } /* Operator */
+      code span.ot { color: #006e28; } /* Other */
+      code span.pp { color: #006e28; } /* Preprocessor */
+      code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+      code span.sc { color: #3daee9; } /* SpecialChar */
+      code span.ss { color: #ff5500; } /* SpecialString */
+      code span.st { color: #bf0303; } /* String */
+      code span.va { color: #0057ae; } /* Variable */
+      code span.vs { color: #bf0303; } /* VerbatimString */
+      code span.wa { color: #bf0303; } /* Warning */
+    </style>
+    
+        <link rel="stylesheet" href="../css/basic.css" type="text/css" />
+    
+    <!-- tabsets -->
+    <script>
+      $(document).ready(function () {
+	  window.buildTabsets("toc");
+      });
+      $(document).ready(function () {
+	  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+	      $(this).parent().toggleClass('nav-tabs-open')
+	  });
+      });
+    </script>
+
+    <!-- code folding -->
+    
+    <!-- code download -->
+    
+    <!-- tabsets dropdown -->
+
+    <style type="text/css">
+      .tabset-dropdown > .nav-tabs {
+	  display: inline-table;
+	  max-height: 500px;
+	  min-height: 44px;
+	  overflow-y: auto;
+	  background: white;
+	  border: 1px solid #ddd;
+	  border-radius: 4px;
+      }
+      
+      .tabset-dropdown > .nav-tabs > li.active:before {
+	  content: "";
+	  font-family: 'Glyphicons Halflings';
+	  display: inline-block;
+	  padding: 10px;
+	  border-right: 1px solid #ddd;
+      }
+      
+      .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+	  content: "&#xe258;";
+	  border: none;
+      }
+      
+      .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+	  content: "";
+	  font-family: 'Glyphicons Halflings';
+	  display: inline-block;
+	  padding: 10px;
+	  border-right: 1px solid #ddd;
+      }
+      
+      .tabset-dropdown > .nav-tabs > li.active {
+	  display: block;
+      }
+
+      .tabset-dropdown > .nav-tabs > li.active a {
+  	  padding: 0 15px !important;
+      }
+
+      .tabset-dropdown > .nav-tabs > li > a,
+      .tabset-dropdown > .nav-tabs > li > a:focus,
+      .tabset-dropdown > .nav-tabs > li > a:hover {
+	  border: none;
+	  display: inline-block;
+	  border-radius: 4px;
+	  background-color: transparent;
+      }
+      
+      .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+	  display: block;
+	  float: none;
+      }
+      
+      .tabset-dropdown > .nav-tabs > li {
+	  display: none;
+	  margin-left: 0 !important;
+      }
+    </style>
+    
+</head>
+
+<body class="preload">
+
+   	
+            <!-- robobook start -->   
+   <div class="book with-summary">
+      <div class="book-summary">
+        <ul>
+          <li class="title"></li>
+          <li class="divider"></li>
+        </ul>
+        <nav role="navigation" id="toc">
+          <ul>
+          <li><a href="#análise-espacial-vetorial-usando-sf" id="toc-análise-espacial-vetorial-usando-sf"><span class="toc-section-number">1</span> Análise Espacial Vetorial usando sf</a>
+          <ul>
+          <li><a href="#objetivos-de-aprendizado" id="toc-objetivos-de-aprendizado"><span class="toc-section-number">1.1</span> Objetivos de Aprendizado</a></li>
+          <li><a href="#o-problema" id="toc-o-problema"><span class="toc-section-number">1.2</span> O problema</a></li>
+          <li><a href="#dados-disponíveis" id="toc-dados-disponíveis"><span class="toc-section-number">1.3</span> Dados disponíveis</a></li>
+          <li><a href="#estratégia-de-análise" id="toc-estratégia-de-análise"><span class="toc-section-number">1.4</span> Estratégia de análise</a></li>
+          <li><a href="#leitura-dos-dados" id="toc-leitura-dos-dados"><span class="toc-section-number">1.5</span> Leitura dos Dados</a></li>
+          <li><a href="#carregando-os-shpefiles-dos-municípios" id="toc-carregando-os-shpefiles-dos-municípios"><span class="toc-section-number">1.6</span> Carregando os Shpefiles dos municípios</a></li>
+          <li><a href="#sf-e-o-tidyverse" id="toc-sf-e-o-tidyverse"><span class="toc-section-number">1.7</span> sf e o Tidyverse</a></li>
+          </ul></li>
+          </ul>
+        </nav>
+        <ul class="authors">
+          <li class="divider"></li>
+                            </ul>     
+      </div>
+      <div class="book-body fixed">
+        <div class="body-inner">
+            <a class="btn pull-left js-toolbar-action toggle-sidebar" aria-label="Toggle Sidebar" title="Toggle Sidebar" href="#">
+              <span class="glyphicon glyphicon-menu-hamburger"></span>
+            </a>
+            <div class="page-inner">
+              <section id="content" class="normal">
+      
+   
+      
+      <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Cars</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li>
+        <a href="index.html">Home</a>
+      </li>
+      <li>
+        <a href="about.html">About</a>
+      </li>
+      <li>
+        <a href="introducao.html">Introdução</a>
+      </li>
+      <li>
+        <a href="tutorial_1.html">Análise Vetorial</a>
+      </li>
+      <li>
+        <a href="mapas.html">Mapas</a>
+      </li>
+      <li>
+        <a href="Agrupar.html">Agrupamento Espacial</a>
+      </li>
+      <li>
+        <a href="map_py.html">R e Python</a>
+      </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container -->
+      </div><!--/.navbar -->
+        
+      
+        
+
+   
+      
+   
+<!-- Don't indent these lines or it will mess pre blocks indentation --> 
+<!--
+https://learning.nceas.ucsb.edu/2019-11-RRCourse/spatial-vector-analysis-using-sf.html
+
+-->
+<div id="análise-espacial-vetorial-usando-sf" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Análise Espacial Vetorial usando sf</h1>
+<div id="objetivos-de-aprendizado" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Objetivos de Aprendizado</h2>
+<ul>
+<li>Preparação e visualização de dados geoespaciais
+<ul>
+<li>preparação de dados (dplyr)</li>
+<li>manipulação de dados espaciais (sf)</li>
+<li>visualização em mapas (ggplot e leaflet)</li>
+</ul></li>
+</ul>
+</div>
+<div id="o-problema" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> O problema</h2>
+<p>Visualização de estatísticas municipais para o estado de Minas Gerais</p>
+</div>
+<div id="dados-disponíveis" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Dados disponíveis</h2>
+<ul>
+<li>Shapefiles dos município de MG</li>
+<li>População por município 2022</li>
+<li>Altitude das sedes de município</li>
+<li>IDH por municípios</li>
+</ul>
+</div>
+<div id="estratégia-de-análise" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> Estratégia de análise</h2>
+<ol style="list-style-type: decimal">
+<li><p>Preparação do Ambiente RStudio</p></li>
+<li><p>Leitura e preparação das tabelas de dados</p></li>
+</ol>
+<ul>
+<li>População por município 2022</li>
+<li>Altitude das sedes de município</li>
+<li>IDH por municípios</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Leitura do shp</p></li>
+<li><p>Integração dos dados</p></li>
+<li><p>Visualização dos Mapas</p></li>
+</ol>
+</div>
+<div id="leitura-dos-dados" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Leitura dos Dados</h2>
+<div id="dados-de-população" class="section level3" number="1.5.1">
+<h3><span class="header-section-number">1.5.1</span> Dados de População</h3>
+<ul>
+<li>importar os dados de população, um arquivo csv</li>
+<li>fazer os ajustes que forem necessários</li>
+<li>biblioteca <code>dplyr</code> (<a href="https://dplyr.tidyverse.org/">saiba mais sobre dplyr</a>)</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>mun_pop <span class="ot">=</span> <span class="fu">read.csv2</span>(<span class="st">&quot;data/CD2022_Populacao_Total_Municipio.csv&quot;</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>                    <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">head</span>(mun_pop)</span></code></pre></div>
+<pre><code>##   UF COD..UF COD..MUNIC     NOME.DO.MUNICÍPIO POP..TOTAL
+## 1 RO      11         15 Alta Floresta D&#39;Oeste      21494
+## 2 RO      11         23             Ariquemes      96833
+## 3 RO      11         31                Cabixi       5351
+## 4 RO      11         49                Cacoal      86887
+## 5 RO      11         56            Cerejeiras      15890
+## 6 RO      11         64     Colorado do Oeste      15663</code></pre>
+<ol style="list-style-type: decimal">
+<li><strong><code>mun_pop = read.csv2("data/CD2022_Populacao_Total_Municipio.csv")</code></strong>
+<ul>
+<li><code>read.csv2</code>: função (base do R) é usada para ler dados de um arquivo CSV. O argumento <code>"data/CD2022_Populacao_Total_Municipio.csv"</code> especifica o caminho do arquivo CSV a ser lido.</li>
+</ul></li>
+<li><strong><code>head(mun_pop)</code></strong>
+<ul>
+<li><code>head()</code>: Esta função é usada para mostrar as primeiras linhas de um conjunto de dados <code>mun_pop</code> no console.</li>
+</ul></li>
+</ol>
+<p>Observe que o código de município (“COD..MUNIC”), que deveria ter 5 dígitos, ficou truncado. Estes códigos, em muitos casos começa com zeros e no processo de leitura, são lidos como números e então perdem os zeros iniciais (não significativos). Além disso, é usual complementar o código com o código da UF e desta forma, o código completo de município terá 7 dígitos, dois dígitos iniciais com o código da UF e mais 5 referente ao município.</p>
+<p>Para começar, vamos selecionar os registros referentes a MG - nosso objetivo de análise. Esta seleção de registros é conhecida como “filter”. No código abaixo, vamos filtrar os registros utilizando a sigla da UF, no caso “MG”, e guardar o resultado em um novo objeto, ‘mg_pop’.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co"># mg_pop = filter(mun_pop, UF == &quot;MG&quot;) ## forma tradicional</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>mg_pop <span class="ot">=</span> mun_pop <span class="sc">|&gt;</span> <span class="fu">filter</span>(UF <span class="sc">==</span> <span class="st">&quot;MG&quot;</span>) <span class="do">## utilizando o pipe para concatenar os termos e comandos</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="fu">head</span>(mg_pop)</span></code></pre></div>
+<pre><code>##   UF COD..UF COD..MUNIC   NOME.DO.MUNICÍPIO POP..TOTAL
+## 1 MG      31        104 Abadia dos Dourados       6272
+## 2 MG      31        203              Abaeté      22675
+## 3 MG      31        302          Abre Campo      13927
+## 4 MG      31        401             Acaiaca       3909
+## 5 MG      31        500             Açucena       8943
+## 6 MG      31        609            Água Boa      12589</code></pre>
+<p>Este trecho de código em R utiliza a biblioteca <code>dplyr</code> e a notação de pipe (<code>|&gt;</code>) para filtrar o conjunto de dados <code>mun_pop</code> mantendo apenas as observações em que a variável <code>UF</code> (Unidade da Federação) é igual a “MG” (Minas Gerais). Vamos analisar o código linha por linha:</p>
+<ol style="list-style-type: decimal">
+<li><strong><code>library(dplyr)</code></strong>
+<ul>
+<li>Carrega a biblioteca <code>dplyr</code>, que fornece um conjunto de funções úteis para manipulação de dados em R, como <code>filter</code> e o operador de pipe <code>%&gt;%</code> ou <code>|&gt;</code>.</li>
+</ul></li>
+<li><strong><code>mg_pop = mun_pop |&gt; filter(UF == "MG")</code></strong>
+<ul>
+<li><code>mun_pop |&gt; filter(UF == "MG")</code>: Utiliza o operador de pipe (<code>|&gt;</code>) para encadear a função <code>filter</code> ao conjunto de dados <code>mun_pop</code>. Isso é equivalente à forma tradicional <code>mg_pop = filter(mun_pop, UF == "MG")</code>.</li>
+<li><code>UF == "MG"</code>: É a condição de filtro, mantendo apenas as linhas em que a variável <code>UF</code> é igual a “MG”.</li>
+<li><code>mg_pop</code>: Armazena o resultado no objeto <code>mg_pop</code>.</li>
+</ul></li>
+</ol>
+<p>Agora, vamos ajustar o código dos municípios em duas etapas. A primeira padroniza em 5 dígitos incluindo zeros à esquerda e na segunda etapa adiciona o código de UF, “31 no caso de MG. Para isso, vamos utilizar a biblioteca <code>stringr</code> que tem diversas funções para manipulação de strings (texto). <a href="https://stringr.tidyverse.org/index.html">saiba mais sobre stringr</a></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>mg_pop<span class="sc">$</span>COD..MUNIC<span class="ot">=</span><span class="fu">str_pad</span>(mg_pop<span class="sc">$</span>COD..MUNIC,<span class="dv">5</span>,<span class="st">&quot;left&quot;</span>,<span class="at">pad=</span><span class="st">&quot;0&quot;</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>mg_pop<span class="sc">$</span>COD..MUNIC<span class="ot">=</span><span class="fu">str_c</span>(<span class="st">&quot;31&quot;</span>,mg_pop<span class="sc">$</span>COD..MUNIC)</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="fu">head</span>(mg_pop)</span></code></pre></div>
+<pre><code>##   UF COD..UF COD..MUNIC   NOME.DO.MUNICÍPIO POP..TOTAL
+## 1 MG      31    3100104 Abadia dos Dourados       6272
+## 2 MG      31    3100203              Abaeté      22675
+## 3 MG      31    3100302          Abre Campo      13927
+## 4 MG      31    3100401             Acaiaca       3909
+## 5 MG      31    3100500             Açucena       8943
+## 6 MG      31    3100609            Água Boa      12589</code></pre>
+<ol style="list-style-type: decimal">
+<li><p><code>library(stringr)</code>: Isso carrega a biblioteca <code>stringr</code>, que fornece funções para manipulação de strings (texto)</p></li>
+<li><p><code>pop_data_MG$COD..MUNIC=str_pad(pop_data_MG$COD..MUNIC,5,"left",pad="0")</code>: Nesta linha, o código está ajustando a largura da variável <code>COD..MUNIC</code> no data frame <code>pop_data_MG</code>.</p>
+<ul>
+<li><code>str_pad</code> é usado para adicionar zeros à esquerda da string contida em <code>pop_data_MG$COD..MUNIC</code> de modo que ela tenha comprimento igual a 5. Se o comprimento atual for menor que 5, zeros serão adicionados à esquerda. Se for maior, a string será truncada. O argumento <code>"left"</code> especifica que os zeros devem ser adicionados à esquerda.</li>
+</ul></li>
+<li><p><code>pop_data_MG$COD..MUNIC=str_c("31",pop_data_MG$COD..MUNIC)</code>: Nesta linha, é adicionado o prefixo “31” à variável <code>COD..MUNIC</code> em <code>pop_data_MG</code>.</p>
+<ul>
+<li><code>str_c</code> é utilizado para concatenar as strings. Portanto, o resultado será a concatenação de “31” com o conteúdo original de <code>pop_data_MG$COD..MUNIC</code>, efetivamente formando um novo código municipal.</li>
+</ul></li>
+</ol>
+</div>
+<div id="dados-de-altitude-das-sedes-de-municípios" class="section level3" number="1.5.2">
+<h3><span class="header-section-number">1.5.2</span> Dados de Altitude das sedes de municípios</h3>
+<ul>
+<li>Carregar os dados de altitude das sedes de municípios, um arquivo csv</li>
+<li>observe que agora, foi utilizada uma função diferente para a leitura: <code>read.csv</code></li>
+<li>este arquivo também é um csv, mas com algumas diferenças para o csv anterior. Neste, o separador de colunas é “,” ( no anterior era “;”) e a casa decimal deste é o “.” (no anterior era “,”)</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>alt_sede <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/altitudes_sedes.csv&quot;</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>alt_sede<span class="sc">$</span>CD_GEOCODM<span class="ot">=</span><span class="fu">as.character</span>(alt_sede<span class="sc">$</span>CD_GEOCODM) </span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">head</span>(alt_sede)</span></code></pre></div>
+<pre><code>##   CD_GEOCODM      LONG        LAT      ALT
+## 1    1100015 -61.99982 -11.935540 337.7357
+## 2    1100023 -63.03327  -9.908463 138.6890
+## 3    1100031 -60.54431 -13.499763 236.0632
+## 4    1100049 -61.44294 -11.433865 177.4535
+## 5    1100056 -60.81843 -13.195033 262.8113
+## 6    1100064 -60.55507 -13.130564 419.0906</code></pre>
+<ul>
+<li><strong><code>alt_sede$CD_GEOCODM=as.character(alt_sede$CD_GEOCODM)</code></strong>
+<ul>
+<li><code>alt_sede$CD_GEOCODM</code>: Acessa a coluna chamada <code>CD_GEOCODM</code> no conjunto de dados <code>alt_sede</code>.</li>
+<li><code>as.character()</code>: Converte os valores dessa coluna para o tipo de dado caractere (string). Isso pode ser útil quando se trabalha com códigos geográficos que não devem ser tratados como números.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="carregando-os-shpefiles-dos-municípios" class="section level2" number="1.6">
+<h2><span class="header-section-number">1.6</span> Carregando os Shpefiles dos municípios</h2>
+<p>A biblioteca <code>sf</code> é uma das mais importantes e atuais para utilização com dados espaciais. O <code>sf</code> é uma implementação em R que incorpora:</p>
+<ul>
+<li>Um novo sistema de classes de dados espaciais em R.</li>
+<li>Funções para leitura e escrita de dados.</li>
+<li>Ferramentas para operações espaciais em vetores.</li>
+<li><a href="https://r-spatial.github.io/sf/">saiba mais sobre sf</a>.</li>
+</ul>
+<p>Leia os dados e veja um gráfico:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co"># mg_muns = read_sf(&quot;data/MG_mun_shp/&quot;) # baste indicar a pastas que contem o shapefile </span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#caso tenha mais de um shp, especifique o nome do &quot;.shp&quot;</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>mg_muns <span class="ot">=</span> <span class="fu">read_sf</span>(<span class="st">&quot;data/MG_mun_shp/MG_Municipios_2022.shp&quot;</span>)</span></code></pre></div>
+<ol style="list-style-type: decimal">
+<li><strong><code>library(sf)</code></strong>
+<ul>
+<li>Carrega a biblioteca <code>sf</code>, que é utilizada para manipular dados espaciais.</li>
+</ul></li>
+<li><strong><code>mg_muns = read_sf("data/MG_mun_shp/MG_Municipios_2022.shp")</code></strong>
+<ul>
+<li><code>read_sf</code>: Esta função é usada para ler dados espaciais de um arquivo shapefile (formato comum para dados espaciais).</li>
+<li><code>"data/MG_mun_shp/MG_Municipios_2022.shp"</code>: Especifica o caminho do arquivo shapefile a ser lido.</li>
+<li><code>mg_muns</code>: Armazena os dados espaciais no objeto <code>mg_muns</code>.</li>
+</ul></li>
+</ol>
+<p>O objeto <code>mg_muns</code> tem uma classe especial</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">class</span>(mg_muns)</span></code></pre></div>
+<pre><code>## [1] &quot;sf&quot;         &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<p>Objetos sf geralmente têm dois tipos - sf e data.frame. Duas diferenças principais em comparação com um objeto data.frame regular são metadados espaciais (tipo de geometria, dimensão, bbox, epsg (SRID), proj4string) e uma coluna adicional - geralmente chamada de geometria. No caso de <code>mg_muns</code> a geometria é referente aos polígonos dos municípios</p>
+<p>Como <code>mg_muns</code> também é da classe data.frame, visualizar o conteúdo do objeto usando a função head mostra resultados semelhantes aos dados que lemos usando read.csv.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">head</span>(mg_muns)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 4 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -47.67975 ymin: -20.45593 xmax: -42.04511 ymax: -17.7664
+## Geodetic CRS:  SIRGAS 2000
+## # A tibble: 6 × 5
+##   CD_MUN  NM_MUN              SIGLA_UF AREA_KM2                               geometry
+##   &lt;chr&gt;   &lt;chr&gt;               &lt;chr&gt;       &lt;dbl&gt;                          &lt;POLYGON [°]&gt;
+## 1 3100104 Abadia dos Dourados MG           880. ((-47.45335 -18.46925, -47.45341 -18.…
+## 2 3100203 Abaeté              MG          1817. ((-45.50026 -19.22585, -45.50024 -19.…
+## 3 3100302 Abre Campo          MG           471. ((-42.42074 -20.39718, -42.42076 -20.…
+## 4 3100401 Acaiaca             MG           102. ((-43.12231 -20.43351, -43.12239 -20.…
+## 5 3100500 Açucena             MG           815. ((-42.43777 -19.17542, -42.43781 -19.…
+## 6 3100609 Água Boa            MG          1320. ((-42.32275 -18.17543, -42.3229 -18.1…</code></pre>
+<p>Observe que este objeto tem uma coluna com a geometria. Neste caso o polígono com a delimitação espacial do município</p>
+<p>Também podemos examinar sua classe:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">class</span>(mg_muns)</span></code></pre></div>
+<pre><code>## [1] &quot;sf&quot;         &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<p>Objetos sf geralmente têm dois tipos - sf e data.frame. Duas diferenças principais em comparação com um objeto data.frame regular são metadados espaciais (tipo de geometria, dimensão, bbox, epsg (SRID), proj4string) e uma coluna adicional - geralmente chamada de geometria.</p>
+<p>Como o objeto shapefile tem a classe sf e data.frame, a função <code>head</code> mostra os os metadados espaciais e as primeiras linhas do data.frame.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">head</span>(mg_muns)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 4 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -47.67975 ymin: -20.45593 xmax: -42.04511 ymax: -17.7664
+## Geodetic CRS:  SIRGAS 2000
+## # A tibble: 6 × 5
+##   CD_MUN  NM_MUN              SIGLA_UF AREA_KM2                               geometry
+##   &lt;chr&gt;   &lt;chr&gt;               &lt;chr&gt;       &lt;dbl&gt;                          &lt;POLYGON [°]&gt;
+## 1 3100104 Abadia dos Dourados MG           880. ((-47.45335 -18.46925, -47.45341 -18.…
+## 2 3100203 Abaeté              MG          1817. ((-45.50026 -19.22585, -45.50024 -19.…
+## 3 3100302 Abre Campo          MG           471. ((-42.42074 -20.39718, -42.42076 -20.…
+## 4 3100401 Acaiaca             MG           102. ((-43.12231 -20.43351, -43.12239 -20.…
+## 5 3100500 Açucena             MG           815. ((-42.43777 -19.17542, -42.43781 -19.…
+## 6 3100609 Água Boa            MG          1320. ((-42.32275 -18.17543, -42.3229 -18.1…</code></pre>
+<div id="sistema-de-referência-de-coordenadas" class="section level3" number="1.6.1">
+<h3><span class="header-section-number">1.6.1</span> Sistema de Referência de Coordenadas</h3>
+<p>Cada objeto sf precisa de um sistema de referência de coordenadas (src ou crs, do inglês) definido para funcionar corretamente. Um sistema de referência de coordenadas contém tanto um datum quanto uma projeção. Grosso modo, o datum é como você georreferencia seus pontos (em 3 dimensões!) para um esferoide. A projeção é como esses pontos são transformados matematicamente para representar o ponto georreferenciado em uma folha de papel plana. Todos os sistemas de referência de coordenadas requerem um datum. No entanto, alguns sistemas de referência de coordenadas são “não projetados” (também chamados de sistemas de coordenadas geográficas). Coordenadas em latitude/longitude usam um sistema de coordenadas geográficas (não projetado).</p>
+<p>Você pode ver qual src está definido usando a função <code>st_crs</code>:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">st_crs</span>(mg_muns)</span></code></pre></div>
+<pre><code>## Coordinate Reference System:
+##   User input: SIRGAS 2000 
+##   wkt:
+## GEOGCRS[&quot;SIRGAS 2000&quot;,
+##     DATUM[&quot;Sistema de Referencia Geocentrico para las AmericaS 2000&quot;,
+##         ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
+##             LENGTHUNIT[&quot;metre&quot;,1]]],
+##     PRIMEM[&quot;Greenwich&quot;,0,
+##         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##     CS[ellipsoidal,2],
+##         AXIS[&quot;geodetic latitude (Lat)&quot;,north,
+##             ORDER[1],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##         AXIS[&quot;geodetic longitude (Lon)&quot;,east,
+##             ORDER[2],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##     USAGE[
+##         SCOPE[&quot;Horizontal component of 3D system.&quot;],
+##         AREA[&quot;Latin America - Central America and South America - onshore and offshore. Brazil - onshore and offshore.&quot;],
+##         BBOX[-59.87,-122.19,32.72,-25.28]],
+##     ID[&quot;EPSG&quot;,4674]]</code></pre>
+<p>Isso parece bastante confuso. Sem entrar em detalhes, essa sequência longa indica que esses dados têm um sistema de coordenadas geográficas (SIRGAS 2000 ). Uma maneira conveniente de referenciar crs rapidamente é usando o código EPSG, um número que representa uma projeção e datum padrão. Você pode conferir uma lista de (muitos!) códigos EPSG <a href="https://spatialreference.org/ref/epsg/">aqui</a>.</p>
+<p>Muitas vezes, você precisará transformar seus dados geoespaciais de um sistema de coordenadas para outro. A função <code>st_transform</code> faz isso rapidamente.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>mg_muns_4326 <span class="ot">=</span> mg_muns <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a><span class="fu">st_crs</span>(mg_muns_4326)</span></code></pre></div>
+<pre><code>## Coordinate Reference System:
+##   User input: EPSG:4326 
+##   wkt:
+## GEOGCRS[&quot;WGS 84&quot;,
+##     ENSEMBLE[&quot;World Geodetic System 1984 ensemble&quot;,
+##         MEMBER[&quot;World Geodetic System 1984 (Transit)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G730)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G873)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G1150)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G1674)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G1762)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G2139)&quot;],
+##         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
+##             LENGTHUNIT[&quot;metre&quot;,1]],
+##         ENSEMBLEACCURACY[2.0]],
+##     PRIMEM[&quot;Greenwich&quot;,0,
+##         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##     CS[ellipsoidal,2],
+##         AXIS[&quot;geodetic latitude (Lat)&quot;,north,
+##             ORDER[1],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##         AXIS[&quot;geodetic longitude (Lon)&quot;,east,
+##             ORDER[2],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##     USAGE[
+##         SCOPE[&quot;Horizontal component of 3D system.&quot;],
+##         AREA[&quot;World.&quot;],
+##         BBOX[-90,-180,90,180]],
+##     ID[&quot;EPSG&quot;,4326]]</code></pre>
+</div>
+<div id="atributos" class="section level3" number="1.6.2">
+<h3><span class="header-section-number">1.6.2</span> Atributos</h3>
+<p>Objetos sf podem ser usados como um objeto data.frame regular em muitas operações.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">nrow</span>(mg_muns)</span></code></pre></div>
+<pre><code>## [1] 853</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">ncol</span>(mg_muns)</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<ol style="list-style-type: decimal">
+<li><p><code>nrow(mg_muns)</code>: retorna o número de linhas no objeto <code>mg_muns</code>, ou seja, a contagem de observações no conjunto de dados. Isso é útil para saber quantos itens estão presentes no conjunto de dados.</p></li>
+<li><p><code>ncol(mg_muns)</code>: retorna o número de colunas no objeto <code>mg_muns</code>, ou seja, a contagem de variáveis ou campos no conjunto de dados. Isso é útil para entender a dimensionalidade do conjunto de dados.</p></li>
+</ol>
+</div>
+</div>
+<div id="sf-e-o-tidyverse" class="section level2" number="1.7">
+<h2><span class="header-section-number">1.7</span> sf e o Tidyverse</h2>
+<p>Como objetos <code>sf</code> se integram bem com pacotes no tidyverse muito utilizado para preparação e manipulação de dados. Isto faz com que os objetos <code>sf</code> sejam facilmente manipulados. Aqui estão alguns exemplos simples:</p>
+<div id="select" class="section level3" number="1.7.1">
+<h3><span class="header-section-number">1.7.1</span> <code>select()</code></h3>
+<ul>
+<li><code>select(CD_MUN, NM_MUN)</code>: Utiliza a função <code>select</code> da biblioteca <code>dplyr</code> para escolher apenas as colunas <code>CD_MUN</code> e <code>NM_MUN</code> do conjunto de dados <code>mg_muns</code>.</li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>mg_muns <span class="sc">%&gt;%</span>  <span class="fu">select</span>(CD_MUN, NM_MUN)</span></code></pre></div>
+<pre><code>## Simple feature collection with 853 features and 2 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -51.04608 ymin: -22.92276 xmax: -39.85683 ymax: -14.23318
+## Geodetic CRS:  SIRGAS 2000
+## # A tibble: 853 × 3
+##    CD_MUN  NM_MUN                                                             geometry
+##    &lt;chr&gt;   &lt;chr&gt;                                                         &lt;POLYGON [°]&gt;
+##  1 3100104 Abadia dos Dourados ((-47.45335 -18.46925, -47.45341 -18.46897, -47.45342 …
+##  2 3100203 Abaeté              ((-45.50026 -19.22585, -45.50024 -19.22578, -45.50019 …
+##  3 3100302 Abre Campo          ((-42.42074 -20.39718, -42.42076 -20.39719, -42.42094 …
+##  4 3100401 Acaiaca             ((-43.12231 -20.43351, -43.12239 -20.43343, -43.12245 …
+##  5 3100500 Açucena             ((-42.43777 -19.17542, -42.43781 -19.1754, -42.43782 -…
+##  6 3100609 Água Boa            ((-42.32275 -18.17543, -42.3229 -18.17546, -42.32331 -…
+##  7 3100708 Água Comprida       ((-48.12686 -19.9863, -48.12721 -19.98594, -48.12711 -…
+##  8 3100807 Aguanil             ((-45.4196 -21.02239, -45.42019 -21.02226, -45.4205 -2…
+##  9 3100906 Águas Formosas      ((-40.78501 -17.072, -40.78491 -17.0726, -40.78482 -17…
+## 10 3101003 Águas Vermelhas     ((-41.50309 -15.52667, -41.50264 -15.52646, -41.50257 …
+## # ℹ 843 more rows</code></pre>
+<ul>
+<li><code>%&gt;%</code>: O operador de pipe (<code>%&gt;%</code>) é usado para encadear operações, permitindo que o resultado da expressão à esquerda seja passado como argumento para a expressão à direita.</li>
+</ul>
+<p>O resultado dessa expressão será um novo conjunto de dados que contém apenas as colunas mencionadas (<code>CD_MUN</code> e <code>NM_MUN</code>). Esse tipo de operação é útil quando você deseja focar em colunas específicas do conjunto de dados e reduzir a quantidade de informações exibidas, facilitando a análise ou visualização dos dados desejados.</p>
+</div>
+<div id="filter" class="section level3" number="1.7.2">
+<h3><span class="header-section-number">1.7.2</span> <code>filter()</code></h3>
+<ul>
+<li><code>filter(NM_MUN == "Viçosa")</code>: Utiliza a função <code>filter</code> da biblioteca <code>dplyr</code> para manter apenas as linhas em que o valor da coluna <code>NM_MUN</code> é igual a “Viçosa”.</li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>mg_muns <span class="sc">%&gt;%</span> <span class="fu">filter</span>(NM_MUN <span class="sc">==</span> <span class="st">&quot;Viçosa&quot;</span>)</span></code></pre></div>
+<pre><code>## Simple feature collection with 1 feature and 4 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -43.00487 ymin: -20.83898 xmax: -42.75358 ymax: -20.65473
+## Geodetic CRS:  SIRGAS 2000
+## # A tibble: 1 × 5
+##   CD_MUN  NM_MUN SIGLA_UF AREA_KM2                                            geometry
+## * &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt;                                       &lt;POLYGON [°]&gt;
+## 1 3171303 Viçosa MG           299. ((-42.89564 -20.8205, -42.89598 -20.82061, -42.896…</code></pre>
+<p>O resultado dessa expressão será um novo conjunto de dados que contém apenas as linhas correspondentes ao município de “Viçosa” no conjunto de dados original <code>mg_muns</code>. Essa operação de filtro é útil quando você deseja examinar ou manipular dados específicos com base em critérios específicos.</p>
+</div>
+<div id="operações-com-a-geometria" class="section level3" number="1.7.3">
+<h3><span class="header-section-number">1.7.3</span> Operações com a geometria</h3>
+<ul>
+<li>Uma das variáveis em mg_muns é a área do município, caso não existisse, poderiamos obte-la com:</li>
+</ul>
+<div id="abordagem-tradicional" class="section level4" number="1.7.3.1">
+<h4><span class="header-section-number">1.7.3.1</span> Abordagem Tradicional:</h4>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>area_mun <span class="ot">=</span> mg_muns <span class="sc">|&gt;</span> <span class="fu">st_area</span>()</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>area_mun <span class="ot">=</span> units<span class="sc">::</span><span class="fu">set_units</span>(area_mun, <span class="st">&quot;km2&quot;</span>)</span></code></pre></div>
+<p>Nesta abordagem, as áreas são calculadas e armazenadas em <code>area_mun</code> usando o operador de pipe (<code>|&gt;</code>). Em seguida, a função <code>units::set_units</code> é usada para definir as unidades da área como quilômetros quadrados.
+<code>area_mun</code> é um vetor com os dados de área, mas não esta integrador ao objeto <code>mg_muns</code></p>
+</div>
+</div>
+<div id="abordagem-com-pipe" class="section level3" number="1.7.4">
+<h3><span class="header-section-number">1.7.4</span> Abordagem com Pipe:</h3>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>area_mun <span class="ot">=</span> mg_muns <span class="sc">|&gt;</span> <span class="fu">st_area</span>() <span class="sc">|&gt;</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="st">&quot;km2&quot;</span>)</span></code></pre></div>
+<p>Nesta versão, a função <code>units::set_units</code> é encadeada diretamente ao resultado de <code>st_area()</code> usando o operador de pipe. Isso reduz a necessidade de criar uma variável intermediária. <code>area_mun</code> ainda não esta integrador ao objeto <code>mg_muns</code></p>
+</div>
+<div id="abordagem-com-pipe-e-mutate" class="section level3" number="1.7.5">
+<h3><span class="header-section-number">1.7.5</span> Abordagem com Pipe e Mutate:</h3>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>mg_muns <span class="ot">=</span> mg_muns <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">area_mun =</span> <span class="fu">st_area</span>(geometry) <span class="sc">|&gt;</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="st">&quot;km2&quot;</span>) <span class="sc">|&gt;</span> <span class="fu">as.numeric</span>())</span></code></pre></div>
+<p>Nesta abordagem, a função <code>mutate</code> do <code>dplyr</code> é usada para adicionar uma nova coluna chamada <code>area_mun</code> ao conjunto de dados original <code>mg_muns</code>. O cálculo da área é feito usando <code>st_area(geometry)</code>, e as unidades são definidas como quilômetros quadrados com <code>units::set_units</code>. A função <code>as.numeric()</code> é usada para garantir que a coluna resultante seja numérica.</p>
+<p>Cada abordagem tem sua utilidade, e a escolha entre elas pode depender da preferência pessoal do programador ou do contexto específico em que estão sendo utilizadas. Todas as abordagens calculam a área em quilômetros quadrados para os municípios de Minas Gerais.</p>
+</div>
+<div id="observando-as-duas-medidas-de-área" class="section level3" number="1.7.6">
+<h3><span class="header-section-number">1.7.6</span> Observando as duas medidas de área</h3>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>mg_muns <span class="sc">|&gt;</span> <span class="fu">select</span>(AREA_KM2, area_mun) <span class="sc">|&gt;</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## Simple feature collection with 5 features and 2 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -47.67975 ymin: -20.45593 xmax: -42.20555 ymax: -18.15839
+## Geodetic CRS:  SIRGAS 2000
+## # A tibble: 5 × 3
+##   AREA_KM2 area_mun                                                           geometry
+##      &lt;dbl&gt;    &lt;dbl&gt;                                                      &lt;POLYGON [°]&gt;
+## 1     880.     883. ((-47.45335 -18.46925, -47.45341 -18.46897, -47.45342 -18.46732, …
+## 2    1817.    1823. ((-45.50026 -19.22585, -45.50024 -19.22578, -45.50019 -19.22532, …
+## 3     471.     472. ((-42.42074 -20.39718, -42.42076 -20.39719, -42.42094 -20.39735, …
+## 4     102.     102. ((-43.12231 -20.43351, -43.12239 -20.43343, -43.12245 -20.43337, …
+## 5     815.     818. ((-42.43777 -19.17542, -42.43781 -19.1754, -42.43782 -19.1754, -4…</code></pre>
+<ul>
+<li><p><code>select(AREA_KM2, area_mun)</code>: Seleciona as colunas <code>AREA_KM2</code> e <code>area_mun</code> do conjunto de dados <code>mg_muns</code>.</p></li>
+<li><p><code>slice_head(n = 5)</code>: Usa a função <code>slice_head</code> (dplyr) para exibir as primeiras cinco linhas do conjunto de dados resultante.</p></li>
+</ul>
+<p>O resultado final será um subconjunto do conjunto de dados original <code>mg_muns</code>, incluindo apenas as colunas <code>AREA_KM2</code> e <code>area_mun</code>, com as primeiras cinco linhas. Isso é útil para visualizar rapidamente as áreas em quilômetros quadrados calculadas usando as diferentes abordagens mencionadas anteriormente.</p>
+</div>
+<div id="mapa" class="section level3" number="1.7.7">
+<h3><span class="header-section-number">1.7.7</span> Mapa</h3>
+<p>Como o objeto <code>mg_muns</code> é da classe <code>sf</code> com geometria de polygonos, o plot simples será um mapa como segue.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">plot</span>(mg_muns <span class="sc">|&gt;</span> <span class="fu">select</span>(AREA_KM2))</span></code></pre></div>
+<p><img src="tutorial_1_files/figure-html/unnamed-chunk-20-1.png" width="768" /></p>
+<ol style="list-style-type: decimal">
+<li><strong><code>plot(mg_muns |&gt; select(AREA_KM2))</code></strong>
+<ul>
+<li><code>mg_muns |&gt; select(AREA_KM2)</code>: Seleciona a coluna <code>AREA_KM2</code> do conjunto de dados <code>mg_muns</code>. A função <code>select</code> é usada para escolher colunas específicas.</li>
+<li><code>plot(...)</code>: Gera um gráfico do objeto espacial resultante, que é uma representação visual dos municípios de Minas Gerais com destaque para a área em quilômetros quadrados.</li>
+</ul></li>
+</ol>
+<p>É uma visualização simple que serve para um momento de análise e visualização rápida. Há outras formas mais elaboradas para gerar a visualização</p>
+</div>
+<div id="recapitulados-o-que-foi-feito-até-agora" class="section level3" number="1.7.8">
+<h3><span class="header-section-number">1.7.8</span> Recapitulados o que foi feito até agora:</h3>
+<ul>
+<li><p><code>mg_pop</code>: tabela de dados com a população por município. Identificação de município por nome ou código</p></li>
+<li><p><code>alt_sede</code>: tabela de dados com as altitudes das sedes dos municípios. Identificação de município por código</p></li>
+<li><p><code>mg_muns</code> - é o shape file de municípios com geometria e metadados. Identificação de município por nome ou código</p></li>
+</ul>
+<p>Para a análise final precisamos agregar os dados de população e altitude em <code>mg_muns</code></p>
+</div>
+<div id="joins" class="section level3" number="1.7.9">
+<h3><span class="header-section-number">1.7.9</span> Joins</h3>
+<div id="joins-não-espaciais" class="section level4" number="1.7.9.1">
+<h4><span class="header-section-number">1.7.9.1</span> Joins não espaciais</h4>
+<p>Podemos agregar as duas tabelas <code>mg_pop</code> e <code>alt_sede</code> utilizando o código de município. Neste caso, apesar de
+<code>alt_sede</code> ter informação para todos os municípios do Brasil, a agregação se dará apenas nos códigos encontrados em <code>mg_pop</code>, municípios de MG. A operação em <code>join</code> garante a correspondência pelo identificador especificado, no caso, código de município</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>mg_pop_2 <span class="ot">=</span> <span class="fu">left_join</span>(mg_pop,alt_sede, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;COD..MUNIC&quot;</span><span class="ot">=</span><span class="st">&quot;CD_GEOCODM&quot;</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a><span class="fu">head</span>(mg_pop_2)</span></code></pre></div>
+<pre><code>##   UF COD..UF COD..MUNIC   NOME.DO.MUNICÍPIO POP..TOTAL      LONG       LAT      ALT
+## 1 MG      31    3100104 Abadia dos Dourados       6272 -47.39683 -18.48756 753.1249
+## 2 MG      31    3100203              Abaeté      22675 -45.44619 -19.15585 644.7399
+## 3 MG      31    3100302          Abre Campo      13927 -42.48099 -20.30145 589.8301
+## 4 MG      31    3100401             Acaiaca       3909 -43.14824 -20.36041 492.7910
+## 5 MG      31    3100500             Açucena       8943 -42.54621 -19.07671 473.7021
+## 6 MG      31    3100609            Água Boa      12589 -42.38964 -17.99105 432.4472</code></pre>
+<ul>
+<li><p><code>left_join</code>: Esta função realiza uma junção (à esquerda) entre dois conjuntos de dados, preservando todas as linhas do conjunto de dados da esquerda (<code>mg_pop</code>) e correspondendo as linhas do conjunto de dados da direita (<code>alt_sede</code>) com base nas colunas especificadas.</p></li>
+<li><p><code>by = c("COD..MUNIC" = "CD_GEOCODM")</code>: Especifica as colunas com as referencias pelas quais a junção será realizada. Neste caso, as colunas <code>COD..MUNIC</code> do conjunto de dados à esquerda e <code>CD_GEOCODM</code> do conjunto de dados à direita são usadas para realizar a junção.</p></li>
+</ul>
+<p>O resultado final será um novo conjunto de dados, <code>mg_pop_2</code> que contém todas as colunas de <code>mg_pop</code> e <code>alt_sede</code>, onde as linhas são correspondentes com base na condição estabelecida. Isso é útil para combinar informações de diferentes conjuntos de dados com base em chaves específicas. O conjunto resultante terá todas as linhas de <code>mg_pop</code> e as colunas adicionais de <code>alt_sede</code> para as linhas correspondentes, enquanto as linhas não correspondentes terão valores NA nas colunas de <code>alt_sede</code>.</p>
+<ul>
+<li>há outras variações de <code>join</code> <a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">saiba mais sobre dplyr</a></li>
+</ul>
+<p>Neste caso, eram dois data frames, mas poderia ser também um objeto classe <code>sf</code></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>mg_muns_2 <span class="ot">=</span> <span class="fu">left_join</span>(mg_muns, mg_pop_2 <span class="sc">|&gt;</span> <span class="fu">select</span>(COD..MUNIC,POP..TOTAL, ALT), <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;CD_MUN&quot;</span><span class="ot">=</span><span class="st">&quot;COD..MUNIC&quot;</span>))</span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a><span class="fu">head</span>(mg_muns_2)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 7 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -47.67975 ymin: -20.45593 xmax: -42.04511 ymax: -17.7664
+## Geodetic CRS:  SIRGAS 2000
+## # A tibble: 6 × 8
+##   CD_MUN  NM_MUN SIGLA_UF AREA_KM2                  geometry area_mun POP..TOTAL   ALT
+##   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt;             &lt;POLYGON [°]&gt;    &lt;dbl&gt;      &lt;int&gt; &lt;dbl&gt;
+## 1 3100104 Abadi… MG           880. ((-47.45335 -18.46925, -…     883.       6272  753.
+## 2 3100203 Abaeté MG          1817. ((-45.50026 -19.22585, -…    1823.      22675  645.
+## 3 3100302 Abre … MG           471. ((-42.42074 -20.39718, -…     472.      13927  590.
+## 4 3100401 Acaia… MG           102. ((-43.12231 -20.43351, -…     102.       3909  493.
+## 5 3100500 Açuce… MG           815. ((-42.43777 -19.17542, -…     818.       8943  474.
+## 6 3100609 Água … MG          1320. ((-42.32275 -18.17543, -…    1325.      12589  432.</code></pre>
+<ul>
+<li><code>mg_pop_2 |&gt; select(COD..MUNIC, POP..TOTAL, ALT)</code>: Seleciona as colunas relevantes (<code>COD..MUNIC</code>, <code>POP..TOTAL</code>, <code>ALT</code>) do conjunto de dados à direita (<code>mg_pop_2</code>) usando a notação de pipe (<code>|&gt;</code>).</li>
+</ul>
+<p>O resultado final é um novo conjunto de dados chamado <code>mg_muns_2</code>, que contém todas as colunas de <code>mg_muns</code> incluindo a geometria e as colunas adicionais selecionadas de <code>mg_pop_2</code> para as linhas correspondentes.</p>
+<p>Desta forma podemos explorar</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="fu">plot</span>(mg_muns_2 <span class="sc">|&gt;</span> <span class="fu">select</span>(ALT))</span></code></pre></div>
+<p><img src="tutorial_1_files/figure-html/unnamed-chunk-23-1.png" width="768" /></p>
+</div>
+</div>
+<div id="join-espacial" class="section level3" number="1.7.10">
+<h3><span class="header-section-number">1.7.10</span> Join espacial</h3>
+<p>Vamos supor que o arquivo <code>alt_sede</code> não tenha a coluna de código de município. Neste caso não seria possível fazer o <code>join</code> como fizemos anteriormente, utilizando o código. Porem, <code>alt_sede</code> tem a coordenada do ponto onde foi feita a medida de altitude e este ponto corresponde a sede do município. Neste caso podemos transformar <code>alt_sede</code> em um objeto sf criando a geometria de pontos e em seguida agregar a <code>mg_muns</code> por um join espacial. O pacote sf tem funções para concatenar dados ‘joins’ espaciais, úteis quando você deseja utilizar dois conjuntos de dados com base nas geometrias.</p>
+<div id="criando-um-objeto-sf" class="section level4" number="1.7.10.1">
+<h4><span class="header-section-number">1.7.10.1</span> Criando um objeto <code>sf</code></h4>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="fu">head</span>(alt_sede)</span></code></pre></div>
+<pre><code>##   CD_GEOCODM      LONG        LAT      ALT
+## 1    1100015 -61.99982 -11.935540 337.7357
+## 2    1100023 -63.03327  -9.908463 138.6890
+## 3    1100031 -60.54431 -13.499763 236.0632
+## 4    1100049 -61.44294 -11.433865 177.4535
+## 5    1100056 -60.81843 -13.195033 262.8113
+## 6    1100064 -60.55507 -13.130564 419.0906</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>alt_sede_sf <span class="ot">=</span> <span class="fu">st_as_sf</span>(alt_sede, </span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>                  <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&#39;LONG&#39;</span>, <span class="st">&#39;LAT&#39;</span>),</span>
+<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a>                  <span class="at">crs =</span> <span class="dv">4674</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" tabindex="-1"></a>                  <span class="at">remove =</span> F)</span>
+<span id="cb43-5"><a href="#cb43-5" tabindex="-1"></a><span class="fu">head</span>(alt_sede_sf)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 4 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -63.03327 ymin: -13.49976 xmax: -60.54431 ymax: -9.908463
+## Geodetic CRS:  SIRGAS 2000
+##   CD_GEOCODM      LONG        LAT      ALT                    geometry
+## 1    1100015 -61.99982 -11.935540 337.7357 POINT (-61.99982 -11.93554)
+## 2    1100023 -63.03327  -9.908463 138.6890 POINT (-63.03327 -9.908463)
+## 3    1100031 -60.54431 -13.499763 236.0632 POINT (-60.54431 -13.49976)
+## 4    1100049 -61.44294 -11.433865 177.4535 POINT (-61.44294 -11.43387)
+## 5    1100056 -60.81843 -13.195033 262.8113 POINT (-60.81843 -13.19503)
+## 6    1100064 -60.55507 -13.130564 419.0906 POINT (-60.55507 -13.13056)</code></pre>
+<ul>
+<li><p><code>st_as_sf</code>: Esta função (sf) converte um conjunto de dados em um objeto do tipo <code>sf</code> (dados espaciais).</p></li>
+<li><p><code>alt_sede</code>: É o conjunto de dados que será convertido.</p></li>
+<li><p><code>coords = c('LONG', 'LAT')</code>: Especifica quais colunas contêm as coordenadas espaciais (longitude e latitude).</p></li>
+<li><p><code>crs = 4674</code>: Define o sistema de referência de coordenadas (CRS, do inglês Coordinate Reference System) para o código 4674.</p></li>
+<li><p><code>remove = F</code>: Indica que não deve remover as colunas de coordenadas originais do conjunto de dados.</p></li>
+</ul>
+<p>O resultado final é o objeto <code>alt_sede_sf</code>, que agora é um conjunto de dados espaciais (<code>sf</code>) pronto para ser usado em operações espaciais, como junções espaciais (<code>st_join</code>). Essa conversão é frequentemente necessária ao trabalhar com dados espaciais para aproveitar as funcionalidades específicas de manipulação e análise espacial oferecidas pela biblioteca <code>sf</code>.</p>
+</div>
+<div id="join-espacial-1" class="section level4" number="1.7.10.2">
+<h4><span class="header-section-number">1.7.10.2</span> <code>join</code> espacial</h4>
+<p>Agora vamos realiza o join espacial o <code>st_join</code></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>mg_muns_3 <span class="ot">=</span> <span class="fu">st_join</span>(mg_muns,alt_sede_sf)</span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a><span class="fu">head</span>(mg_muns_3)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 9 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -47.67975 ymin: -20.45593 xmax: -42.04511 ymax: -17.7664
+## Geodetic CRS:  SIRGAS 2000
+## # A tibble: 6 × 10
+##   CD_MUN  NM_MUN SIGLA_UF AREA_KM2                  geometry area_mun CD_GEOCODM  LONG
+##   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt;             &lt;POLYGON [°]&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;
+## 1 3100104 Abadi… MG           880. ((-47.45335 -18.46925, -…     883. 3100104    -47.4
+## 2 3100203 Abaeté MG          1817. ((-45.50026 -19.22585, -…    1823. 3100203    -45.4
+## 3 3100302 Abre … MG           471. ((-42.42074 -20.39718, -…     472. 3100302    -42.5
+## 4 3100401 Acaia… MG           102. ((-43.12231 -20.43351, -…     102. 3100401    -43.1
+## 5 3100500 Açuce… MG           815. ((-42.43777 -19.17542, -…     818. 3100500    -42.5
+## 6 3100609 Água … MG          1320. ((-42.32275 -18.17543, -…    1325. 3100609    -42.4
+## # ℹ 2 more variables: LAT &lt;dbl&gt;, ALT &lt;dbl&gt;</code></pre>
+<p>O código <code>st_join(mg_muns, alt_sede_sf)</code> usa a função <code>st_join</code> da biblioteca <code>sf</code> para realizar uma junção espacial entre os conjuntos de dados <code>mg_muns</code> e <code>alt_sede_sf</code>. Vamos analisar o código:</p>
+<ul>
+<li><code>st_join</code>: Esta função (sf) realiza uma junção espacial entre dois conjuntos de dados <code>sf</code> (dados espaciais). A junção é realizada com base na sobreposição espacial dos objetos em ambos os conjuntos.</li>
+</ul>
+<p>O resultado final é um novo conjunto de dados chamado <code>mg_muns_3</code>, que contém todas as colunas de <code>mg_muns</code> e as colunas adicionais de <code>alt_sede_sf</code> para as áreas que têm sobreposição espacial. Essa operação é útil quando você deseja combinar informações de diferentes conjuntos de dados com base em sua proximidade espacial ou sobreposição geográfica.</p>
+<p>Para finalizar, falta agregar a população que pode ser feita por um join não espacial</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a>mg_muns_3 <span class="ot">=</span> <span class="fu">left_join</span>(mg_muns_3, mg_pop <span class="sc">|&gt;</span> <span class="fu">select</span>(COD..MUNIC,POP..TOTAL), <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;CD_MUN&quot;</span><span class="ot">=</span><span class="st">&quot;COD..MUNIC&quot;</span>))</span>
+<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" tabindex="-1"></a><span class="fu">head</span>(mg_muns_3)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 10 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -47.67975 ymin: -20.45593 xmax: -42.04511 ymax: -17.7664
+## Geodetic CRS:  SIRGAS 2000
+## # A tibble: 6 × 11
+##   CD_MUN  NM_MUN SIGLA_UF AREA_KM2                  geometry area_mun CD_GEOCODM  LONG
+##   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt;             &lt;POLYGON [°]&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;
+## 1 3100104 Abadi… MG           880. ((-47.45335 -18.46925, -…     883. 3100104    -47.4
+## 2 3100203 Abaeté MG          1817. ((-45.50026 -19.22585, -…    1823. 3100203    -45.4
+## 3 3100302 Abre … MG           471. ((-42.42074 -20.39718, -…     472. 3100302    -42.5
+## 4 3100401 Acaia… MG           102. ((-43.12231 -20.43351, -…     102. 3100401    -43.1
+## 5 3100500 Açuce… MG           815. ((-42.43777 -19.17542, -…     818. 3100500    -42.5
+## 6 3100609 Água … MG          1320. ((-42.32275 -18.17543, -…    1325. 3100609    -42.4
+## # ℹ 3 more variables: LAT &lt;dbl&gt;, ALT &lt;dbl&gt;, POP..TOTAL &lt;int&gt;</code></pre>
+</div>
+</div>
+<div id="salvar" class="section level3" number="1.7.11">
+<h3><span class="header-section-number">1.7.11</span> Salvar</h3>
+<p>Salve o objeto espacial no disco usando write_sf() e especificando o nome do arquivo. Escrever seu arquivo com a extensão .shp assumirá um driver ESRI, mas existem muitas outras opções de formato disponíveis.</p>
+<div id="salvar-em-shp" class="section level4" number="1.7.11.1">
+<h4><span class="header-section-number">1.7.11.1</span> Salvar em SHP</h4>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="fu">write_sf</span>(mg_muns_3 , <span class="st">&quot;data/mg_muns_3.shp&quot;</span>, <span class="at">delete_layer =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="salvar-em-geopackage" class="section level4" number="1.7.11.2">
+<h4><span class="header-section-number">1.7.11.2</span> Salvar em Geopackage</h4>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="fu">write_sf</span>( mg_muns_3, <span class="st">&quot;data/mg_muns_3.gpkg&quot;</span>, <span class="at">delete_layer =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+
+   
+   
+           </section>
+  </div>
+  </div>
+  </div>
+  </div>
+      
+      
+
+  <script>
+    $(document).ready(function () {
+
+		// add bootstrap table styles to pandoc tables
+	$('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+		
+ 	 	$('#content img').addClass("image-thumb");
+		
+		$('#content img:not(.no-lightbox)').addClass("image-lb");
+	$('#content').magnificPopup({
+	    type:'image',
+	    closeOnContentClick: false,
+	    closeBtnInside: false,
+	    delegate: '.image-lb',
+	    gallery: {enabled: true },
+	    image: {
+	        verticalFit: true,
+		titleSrc: 'alt'
+	    }
+ 	});
+ 	    });
+  </script>
+
+
+
+    <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+	var script = document.createElement("script");
+	script.type = "text/javascript";
+	script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+	document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+  
+</body>
+</html>

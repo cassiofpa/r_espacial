@@ -3,10 +3,20 @@ output_dir: "docs"
 navbar:
   title: "Cars"
   left:
-  - text: "Home"
-    href: index.html
-  - text: "Speed and Distance"
-    href: teste.html
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+    - text: "Introdução"
+      href: introducao.html    
+    - text: "Análise Vetorial"
+      href: tutorial_1.html
+    - text: "Mapas"
+      href: mapas.html
+    - text: "Agrupamento Espacial"
+      href: Agrupar.html
+    - text: "R e Python"
+      href: map_py.html
 output:
   html_document:
     theme: cosmo

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+
+    
+    
+    <title>Agrupar.knit</title>
+
+        <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="site_libs/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="site_libs/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+        <script src="site_libs/navigation-1.1/tabsets.js"></script>
+        <link href="site_libs/magnific-popup-1.1.0/magnific-popup.css" rel="stylesheet" />
+        <script src="site_libs/magnific-popup-1.1.0/jquery.magnific-popup.min.js"></script>
+        <link href="site_libs/robobook-0.1/robobook.css" rel="stylesheet" />
+        <link href="site_libs/robobook-0.1/robobook_fonts_embed.css" rel="stylesheet" />
+        <script src="site_libs/robobook-0.1/robobook.js"></script>
+    
+    
+        <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          background-color: #ffffff;
+          color: #a0a0a0;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+      div.sourceCode
+        { color: #1f1c1b; background-color: #ffffff; }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span { color: #1f1c1b; } /* Normal */
+      code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+      code span.an { color: #ca60ca; } /* Annotation */
+      code span.at { color: #0057ae; } /* Attribute */
+      code span.bn { color: #b08000; } /* BaseN */
+      code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+      code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #924c9d; } /* Char */
+      code span.cn { color: #aa5500; } /* Constant */
+      code span.co { color: #898887; } /* Comment */
+      code span.cv { color: #0095ff; } /* CommentVar */
+      code span.do { color: #607880; } /* Documentation */
+      code span.dt { color: #0057ae; } /* DataType */
+      code span.dv { color: #b08000; } /* DecVal */
+      code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+      code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+      code span.fl { color: #b08000; } /* Float */
+      code span.fu { color: #644a9b; } /* Function */
+      code span.im { color: #ff5500; } /* Import */
+      code span.in { color: #b08000; } /* Information */
+      code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+      code span.op { color: #1f1c1b; } /* Operator */
+      code span.ot { color: #006e28; } /* Other */
+      code span.pp { color: #006e28; } /* Preprocessor */
+      code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+      code span.sc { color: #3daee9; } /* SpecialChar */
+      code span.ss { color: #ff5500; } /* SpecialString */
+      code span.st { color: #bf0303; } /* String */
+      code span.va { color: #0057ae; } /* Variable */
+      code span.vs { color: #bf0303; } /* VerbatimString */
+      code span.wa { color: #bf0303; } /* Warning */
+    </style>
+    
+        <link rel="stylesheet" href="../css/basic.css" type="text/css" />
+    
+    <!-- tabsets -->
+    <script>
+      $(document).ready(function () {
+	  window.buildTabsets("toc");
+      });
+      $(document).ready(function () {
+	  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+	      $(this).parent().toggleClass('nav-tabs-open')
+	  });
+      });
+    </script>
+
+    <!-- code folding -->
+    
+    <!-- code download -->
+    
+    <!-- tabsets dropdown -->
+
+    <style type="text/css">
+      .tabset-dropdown > .nav-tabs {
+	  display: inline-table;
+	  max-height: 500px;
+	  min-height: 44px;
+	  overflow-y: auto;
+	  background: white;
+	  border: 1px solid #ddd;
+	  border-radius: 4px;
+      }
+      
+      .tabset-dropdown > .nav-tabs > li.active:before {
+	  content: "";
+	  font-family: 'Glyphicons Halflings';
+	  display: inline-block;
+	  padding: 10px;
+	  border-right: 1px solid #ddd;
+      }
+      
+      .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+	  content: "&#xe258;";
+	  border: none;
+      }
+      
+      .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+	  content: "";
+	  font-family: 'Glyphicons Halflings';
+	  display: inline-block;
+	  padding: 10px;
+	  border-right: 1px solid #ddd;
+      }
+      
+      .tabset-dropdown > .nav-tabs > li.active {
+	  display: block;
+      }
+
+      .tabset-dropdown > .nav-tabs > li.active a {
+  	  padding: 0 15px !important;
+      }
+
+      .tabset-dropdown > .nav-tabs > li > a,
+      .tabset-dropdown > .nav-tabs > li > a:focus,
+      .tabset-dropdown > .nav-tabs > li > a:hover {
+	  border: none;
+	  display: inline-block;
+	  border-radius: 4px;
+	  background-color: transparent;
+      }
+      
+      .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+	  display: block;
+	  float: none;
+      }
+      
+      .tabset-dropdown > .nav-tabs > li {
+	  display: none;
+	  margin-left: 0 !important;
+      }
+    </style>
+    
+</head>
+
+<body class="preload">
+
+   	
+            <!-- robobook start -->   
+   <div class="book with-summary">
+      <div class="book-summary">
+        <ul>
+          <li class="title"></li>
+          <li class="divider"></li>
+        </ul>
+        <nav role="navigation" id="toc">
+          <ul>
+          <li><a href="#agrupamentos" id="toc-agrupamentos"><span class="toc-section-number">1</span> Agrupamentos</a>
+          <ul>
+          <li><a href="#objetivo" id="toc-objetivo"><span class="toc-section-number">1.1</span> Objetivo</a></li>
+          <li><a href="#importar-o-shp" id="toc-importar-o-shp"><span class="toc-section-number">1.2</span> Importar o SHP</a></li>
+          <li><a href="#mesoregiões" id="toc-mesoregiões"><span class="toc-section-number">1.3</span> Mesoregiões</a></li>
+          <li><a href="#agrupar-e-resumir" id="toc-agrupar-e-resumir"><span class="toc-section-number">1.4</span> Agrupar e Resumir</a></li>
+          <li><a href="#salvar" id="toc-salvar"><span class="toc-section-number">1.5</span> Salvar</a></li>
+          </ul></li>
+          </ul>
+        </nav>
+        <ul class="authors">
+          <li class="divider"></li>
+                            </ul>     
+      </div>
+      <div class="book-body fixed">
+        <div class="body-inner">
+            <a class="btn pull-left js-toolbar-action toggle-sidebar" aria-label="Toggle Sidebar" title="Toggle Sidebar" href="#">
+              <span class="glyphicon glyphicon-menu-hamburger"></span>
+            </a>
+            <div class="page-inner">
+              <section id="content" class="normal">
+      
+   
+      
+      <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Cars</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li>
+        <a href="index.html">Home</a>
+      </li>
+      <li>
+        <a href="about.html">About</a>
+      </li>
+      <li>
+        <a href="introducao.html">Introdução</a>
+      </li>
+      <li>
+        <a href="tutorial_1.html">Análise Vetorial</a>
+      </li>
+      <li>
+        <a href="mapas.html">Mapas</a>
+      </li>
+      <li>
+        <a href="Agrupar.html">Agrupamento Espacial</a>
+      </li>
+      <li>
+        <a href="map_py.html">R e Python</a>
+      </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container -->
+      </div><!--/.navbar -->
+        
+      
+        
+
+   
+      
+   
+<!-- Don't indent these lines or it will mess pre blocks indentation --> 
+<div id="agrupamentos" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Agrupamentos</h1>
+<div id="objetivo" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Objetivo</h2>
+<ul>
+<li>Calcular as estatísticas: área, e população para Mesorregiões</li>
+<li>Uma mesorregião é um agrupamento de municípios e é identificada pelos primeiros quatro dígitos do código de município</li>
+</ul>
+</div>
+<div id="importar-o-shp" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Importar o SHP</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>mg_muns_3 <span class="ot">=</span> <span class="fu">read_sf</span>( <span class="st">&quot;data/mg_muns_3.shp&quot;</span>)</span></code></pre></div>
+</div>
+<div id="mesoregiões" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Mesoregiões</h2>
+<p>Mesorregião é uma área individualizada, em uma Unidade da Federação, que apresenta forma de organização do espaço geográfico definidas pelas seguintes dimensões: o processo social, como determinante; o quadro natural, como condicionante; e a rede de comunicação e de lugares, como elemento da articulação espacial.</p>
+<ul>
+<li><p>os códigos de mesorregiões são os 4 primeiros dígitos do código de município: para Viçosa, codigo 3171303, o código da mesorregião é 3171</p></li>
+<li><p>o código abaixo cria uma nova variável chamada <code>CD_MESO</code> no dataframe <code>pop_data_MG</code>, que contém os primeiros quatro dígitos de cada código municipal em <code>COD..MUNIC</code>.</p></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>mg_pop <span class="ot">=</span> mg_muns_3 <span class="sc">|&gt;</span>  <span class="fu">mutate</span>(<span class="at">CD_MESO =</span> <span class="fu">str_sub</span>(CD_MUN, <span class="dv">1</span>, <span class="dv">4</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">head</span>(mg_pop)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 11 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -47.67975 ymin: -20.45593 xmax: -42.04511 ymax: -17.7664
+## Geodetic CRS:  SIRGAS 2000
+## # A tibble: 6 × 12
+##   CD_MUN  NM_MUN    SIGLA_UF AREA_KM2 area_mun CD_GEOCODM  LONG   LAT   ALT POP__TOTAL
+##   &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;int&gt;
+## 1 3100104 Abadia d… MG           880.     883. 3100104    -47.4 -18.5  753.       6272
+## 2 3100203 Abaeté    MG          1817.    1823. 3100203    -45.4 -19.2  645.      22675
+## 3 3100302 Abre Cam… MG           471.     472. 3100302    -42.5 -20.3  590.      13927
+## 4 3100401 Acaiaca   MG           102.     102. 3100401    -43.1 -20.4  493.       3909
+## 5 3100500 Açucena   MG           815.     818. 3100500    -42.5 -19.1  474.       8943
+## 6 3100609 Água Boa  MG          1320.    1325. 3100609    -42.4 -18.0  432.      12589
+## # ℹ 2 more variables: geometry &lt;POLYGON [°]&gt;, CD_MESO &lt;chr&gt;</code></pre>
+<ol style="list-style-type: decimal">
+<li><p><code>mg_muns_3</code>: é o dataframe que está sendo manipulado.</p></li>
+<li><p><code>|&gt;</code>: O operador pipe (<code>|&gt;</code>) é usado para passar o resultado da expressão à esquerda como primeiro argumento da função à direita. Ele ajuda a encadear operações de forma mais legível.</p></li>
+<li><p><code>mutate(CD_MESO = str_sub(COD_MUNIC, 1, 4))</code>: Aqui, a função <code>mutate</code> do pacote <code>dplyr</code> está sendo usada para criar uma nova variáveis no dataframe.</p>
+<ul>
+<li><p><code>CD_MESO</code>: É o nome da nova variável que está sendo criada.</p></li>
+<li><p><code>str_sub(COD_MUNIC, 1, 4)</code>: Está utilizando a função <code>str_sub</code> do pacote <code>stringr</code>. Essa função extrai um pedaço de uma string com base nas posições especificadas. No caso, está pegando os caracteres nas posições de 1 a 4 da variável <code>COD_MUNIC</code>.</p></li>
+<li><p>Isso cria uma nova variável chamada <code>CD_MESO</code> contendo os quatro primeiros dígitos de cada código municipal em <code>COD_MUNIC</code>.</p></li>
+</ul></li>
+</ol>
+</div>
+<div id="agrupar-e-resumir" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> Agrupar e Resumir</h2>
+<p>Agora calculamos a mg_população total para cada região. Neste caso, queremos fazer um group_by e summarise como se fosse um data.frame regular - caso contrário, todas as nossas geometrias de ponto seriam incluídas na agregação, o que não é o que queremos. Nosso objetivo é apenas obter a mg_população total por região. Removemos a geometria usando as.data.frame, seguindo a orientação da página de ajuda sf::tidyverse.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>mg_pop_region <span class="ot">=</span> mg_pop <span class="sc">%&gt;%</span>  <span class="fu">group_by</span>(CD_MESO) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>    <span class="at">total_meso_pop =</span> <span class="fu">sum</span>(POP__TOTAL),</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>    <span class="at">total_meso_area=</span> <span class="fu">sum</span>(AREA_KM2))</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">head</span>(mg_pop_region)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 3 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -49.24935 ymin: -22.23889 xmax: -40.41464 ymax: -15.36315
+## Geodetic CRS:  SIRGAS 2000
+## # A tibble: 6 × 4
+##   CD_MESO total_meso_pop total_meso_area                                      geometry
+##   &lt;chr&gt;            &lt;int&gt;           &lt;dbl&gt;                            &lt;MULTIPOLYGON [°]&gt;
+## 1 3100             93228           6950. (((-42.43737 -19.17565, -42.43703 -19.17597,…
+## 2 3101            233425           7888. (((-44.55987 -22.15982, -44.55999 -22.15965,…
+## 3 3102            138738           5257. (((-43.40766 -21.15814, -43.40734 -21.15805,…
+## 4 3103            198364           7238. (((-44.1714 -19.29562, -44.1698 -19.29454, -…
+## 5 3104            251622          11803. (((-45.54356 -20.3877, -45.54284 -20.38795, …
+## 6 3105            228527           4306. (((-43.43432 -19.78768, -43.43444 -19.78765,…</code></pre>
+<p>Explicitando a soma da população para a mesorregião 3100</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>mg_pop <span class="sc">|&gt;</span> <span class="fu">filter</span>(CD_MESO<span class="sc">==</span><span class="dv">3100</span>) <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">s=</span> <span class="fu">sum</span>(POP__TOTAL))</span></code></pre></div>
+<pre><code>## Simple feature collection with 1 feature and 1 field
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -48.20341 ymin: -21.07777 xmax: -40.76898 ymax: -16.8987
+## Geodetic CRS:  SIRGAS 2000
+## # A tibble: 1 × 2
+##       s                                                                       geometry
+##   &lt;int&gt;                                                             &lt;MULTIPOLYGON [°]&gt;
+## 1 93228 (((-42.43737 -19.17565, -42.43703 -19.17597, -42.43669 -19.17636, -42.43635 -…</code></pre>
+<p>Observe que automaticamente também é feita a composição (union) da geometria</p>
+</div>
+<div id="salvar" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Salvar</h2>
+<p>Salve o objeto espacial no disco usando write_sf() e especificando o nome do arquivo. Escrever seu arquivo com a extensão .shp assumirá um driver ESRI, mas existem muitas outras opções de formato disponíveis.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">write_sf</span>(mg_pop_region, <span class="st">&quot;data/MG_meso_shp/MG_Mesorregioes_2022.shp&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning in abbreviate_shapefile_names(obj): Field names abbreviated for ESRI
+## Shapefile driver</code></pre>
+</div>
+</div>
+
+   
+   
+           </section>
+  </div>
+  </div>
+  </div>
+  </div>
+      
+      
+
+  <script>
+    $(document).ready(function () {
+
+		// add bootstrap table styles to pandoc tables
+	$('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+		
+ 	 	$('#content img').addClass("image-thumb");
+		
+		$('#content img:not(.no-lightbox)').addClass("image-lb");
+	$('#content').magnificPopup({
+	    type:'image',
+	    closeOnContentClick: false,
+	    closeBtnInside: false,
+	    delegate: '.image-lb',
+	    gallery: {enabled: true },
+	    image: {
+	        verticalFit: true,
+		titleSrc: 'alt'
+	    }
+ 	});
+ 	    });
+  </script>
+
+
+
+    <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+	var script = document.createElement("script");
+	script.type = "text/javascript";
+	script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+	document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+  
+</body>
+</html>
