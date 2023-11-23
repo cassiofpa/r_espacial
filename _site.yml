@@ -1,12 +1,10 @@
-name: "cars"
+name: "R_Espacial"
 output_dir: "docs"
 navbar:
-  title: "Cars"
+  title: "R_Espacial"
   left:
     - text: "Home"
       href: index.html
-    - text: "About"
-      href: about.html
     - text: "Introdução"
       href: introducao.html    
     - text: "Análise Vetorial"
